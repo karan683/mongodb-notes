@@ -1,0 +1,44 @@
+> show dbs
+StudentManagementSystem  0.000GB
+Videos                   0.000GB
+admin                    0.000GB
+completeForm             0.000GB
+config                   0.000GB
+local                    0.000GB
+shop                     0.000GB
+todo                     0.000GB
+> use flights
+switched to db flights
+> db.flightData.insertOne({departureAirport:"MUC" ,  arrivalAirport:"SFO" ,  aircraft : "Airbus A380" ,  distance : 12000 , intercontinental : true })
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("6103dfc6817efd9107b7ca7e")
+}
+> db.flightData.find().pretty()
+{
+        "_id" : ObjectId("6103dfc6817efd9107b7ca7e"),
+        "departureAirport" : "MUC",
+        "arrivalAirport" : "SFO",
+        "aircraft" : "Airbus A380",
+        "distance" : 12000,
+        "intercontinental" : true
+}
+> db.flightData.insertOne({departureAirport:"pune" , arrivalAirport : "mumbai"})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("6103e233817efd9107b7ca7f")
+}
+> db.flightData.find().pretty()
+{
+        "_id" : ObjectId("6103dfc6817efd9107b7ca7e"),
+        "departureAirport" : "MUC",
+        "arrivalAirport" : "SFO",
+        "aircraft" : "Airbus A380",
+        "distance" : 12000,
+        "intercontinental" : true
+}
+{
+        "_id" : ObjectId("6103e233817efd9107b7ca7f"),
+        "departureAirport" : "pune",
+        "arrivalAirport" : "mumbai"
+}

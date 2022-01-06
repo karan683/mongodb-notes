@@ -1,0 +1,60 @@
+Suppose their are Customers and products
+One Customer can buy multiple products and one product can be bought by multiple customers 
+Hence many-to-many Relationship
+
+One Customer - many products
+One product  - many customers
+
+use shop
+switched to db shop
+> db.products.insertOne( {title: "A Book" , price : 12.99 } )  
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("6107a802f5bbe3dc38d819f5")
+}
+> db.products.findOne()
+{
+        "_id" : ObjectId("6107a802f5bbe3dc38d819f5"),
+        "title" : "A Book",
+        "price" : 12.99
+}
+> db.customers.insertOne( { name : "karan" , age : 20 } ) 
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("6107a82ff5bbe3dc38d819f6")
+} 
+> db.customers.findOne()
+{
+        "_id" : ObjectId("6107a82ff5bbe3dc38d819f6"),
+        "name" : "karan",
+        "age" : 20
+}
+> db.customers.updateOne( {} , {$set : {orders : [ {productId : ObjectId("6107a802f5bbe3dc38d819f5") , quantity : 2}]}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.customers.findOne()
+{
+        "_id" : ObjectId("6107a82ff5bbe3dc38d819f6"),
+        "name" : "karan",
+        "age" : 20,
+        "orders" : [
+                {
+                        "productId" : ObjectId("6107a802f5bbe3dc38d819f5"),
+                        "quantity" : 2
+                }
+        ]
+}
+> db.customers.updateOne( {} , {$set : {orders : [ {title : "A Book" , price : 12.99 , quantity : 2} ]}})               
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.customers.findOne()
+{
+        "_id" : ObjectId("6107a82ff5bbe3dc38d819f6"),
+        "name" : "karan",
+        "age" : 20,
+        "orders" : [
+                {
+                        "title" : "A Book",
+                        "price" : 12.99,
+                        "quantity" : 2
+                }
+        ]
+}

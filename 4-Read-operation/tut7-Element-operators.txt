@@ -1,0 +1,28 @@
+Element Operators 
+A   $exists (it is use to check wheather the given field exists in the given documents or not)
+B   $type (it is used to check the data type of the field)
+
+
+
+> db.users.find({age : {$exists : true}}).pretty()
+{
+        "_id" : ObjectId("6115f23f8e48e66672b55329"),
+        "name" : "Test",
+        "hobbies" : [
+                {
+                        "title" : "Cooking",
+                        "frequency" : 5
+                },
+                {
+                        "title" : "Cars",
+                        "frequency" : 2
+                }
+        ],
+        "phone" : "122132334",
+        "age" : 30
+}
+> db.users.find({age : {$exists : true , $gte : 30 }}).pretty()
+> db.users.find({age : {$exists : true , $ne : null}}).pretty()
+
+> db.users.find({phone : {$type : "number"}}).pretty()
+> db.users.find({phone : {$type : ["number","string"]}}).pretty()

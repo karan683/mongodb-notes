@@ -1,0 +1,18 @@
+Working wiht int 32
+
+db.persons.insertOne({name : "karan" , age : 20})
+This is stored as 64 bit double because here we are mongoshell and mongoshell is build with javascript and javascript treat interger as a 64 bit double
+
+
+db.persons.insertOne({ age : NumberInt(29)})
+This stored as int 32 bit interger
+
+
+
+
+
+
+
+
+
+

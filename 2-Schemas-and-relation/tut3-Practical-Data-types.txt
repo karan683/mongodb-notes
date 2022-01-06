@@ -1,0 +1,98 @@
+> use companyData
+switched to db companyData
+> db.companies.insertOne( {name : "Fresh Apples Inc" , isStartUP : true , employees : 33 , funding : 12345678901234567890 , details : { ceo : "karan"} , tags : [ { title : "super"} , {title : "perfect"}] , foundingDate : new Date() , insertedAt : new Timestamp()} )
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("610699981f43db47b90cee12")
+}
+> db.companies.find().pretty()
+{
+        "_id" : ObjectId("610699981f43db47b90cee12"),        
+        "name" : "Fresh Apples Inc",
+        "isStartUP" : true,
+        "employees" : 33,
+        "funding" : 12345678901234567000,
+        "details" : {
+                "ceo" : "karan"
+        },
+        "tags" : [
+                {
+                        "title" : "super"
+                },
+                {
+                        "title" : "perfect"
+                }
+        ],
+        "foundingDate" : ISODate("2021-08-01T12:54:48.795Z"),
+        "insertedAt" : Timestamp(1627822488, 1)
+}
+> db.numbers.insertOne( { a : 1})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("61069ae21f43db47b90cee13")
+}
+> db.stats()
+{
+        "db" : "companyData",        
+        "collections" : 2,
+        "views" : 0,
+        "objects" : 2,
+        "avgObjSize" : 132,
+        "dataSize" : 264,
+        "storageSize" : 24576,       
+        "indexes" : 2,
+        "indexSize" : 24576,
+        "totalSize" : 49152,
+        "scaleFactor" : 1,
+        "fsUsedSize" : 155637133312, 
+        "fsTotalSize" : 999231787008,
+        "ok" : 1
+}
+db.companies.drop()
+true
+> show collections
+numbers
+> db.numbers.deleteMany({})
+{ "acknowledged" : true, "deletedCount" : 1 }
+> db.stats()
+{
+        "db" : "companyData",        
+        "collections" : 1,
+        "views" : 0,
+        "objects" : 0,
+        "avgObjSize" : 0,
+        "dataSize" : 0,
+        "storageSize" : 20480,       
+        "indexes" : 1,
+        "indexSize" : 20480,
+        "totalSize" : 40960,
+        "scaleFactor" : 1,
+        "fsUsedSize" : 155637035008, 
+        "fsTotalSize" : 999231787008,
+        "ok" : 1
+}
+This method will create 32 bit number instead of 64 bit float (which is default in shell)
+db.numbers.insertOne({ a : NumberInt(1)})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("61069bc01f43db47b90cee14")
+}
+> db.stats()
+{
+        "db" : "companyData",        
+        "collections" : 1,
+        "views" : 0,
+        "objects" : 1,
+        "avgObjSize" : 29,
+        "dataSize" : 29,
+        "storageSize" : 24576,       
+        "indexes" : 1,
+        "indexSize" : 24576,
+        "totalSize" : 49152,
+        "scaleFactor" : 1,
+        "fsUsedSize" : 155637239808, 
+        "fsTotalSize" : 999231787008,
+        "ok" : 1
+}
+> typeof db.numbers.findOne().a
+number

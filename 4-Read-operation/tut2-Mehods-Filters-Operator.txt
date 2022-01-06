@@ -1,0 +1,15 @@
+Anything starting with '$' means operators (these are reserved keyword in mongoDb)
+You pass the filter by passing the document as a first argument and  then specifying the condition
+
+Methods
+
+db.collection.find( { age : 32} )
+                        Filter
+
+db.collection.find( { age : {$eq : 32} } )
+                      Filter eq : means equal to 
+
+db.collection.find( { age : { $gt :  30  } } )
+                             operator
+                             Range Filter
+                             gt means greather than

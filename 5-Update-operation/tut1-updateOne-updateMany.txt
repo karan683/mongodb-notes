@@ -1,0 +1,211 @@
+$set does not overwrite the whole document but it is useful to overwrite or add the new field to existing document
+
+
+> db.users.updateOne( {_id : ObjectId("61176012fb7d678ebc7a1d5a")} , {$set : {hobbies:[{title : "Sports" , frequency : 5} , { title : "Cooking" , frequency : 3}, { 
+title : "Hiking" , frequency : 1}]}} )
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+
+> db.users.updateMany( {"hobbies.title" : "Sports"}, {$set : {isSporty : true}})
+{ "acknowledged" : true, "matchedCount" : 3, "modifiedCount" : 3 }
+> db.users.find().pretty()
+{
+        "_id" : ObjectId("6115f23f8e48e66672b55328"),
+        "name" : "Karan",
+        "hobbies" : [
+                {
+                        "title" : "Sports",
+                        "frequency" : 3
+                },
+                {
+                        "title" : "Cooking",
+                        "frequency" : 6
+                }
+        ],
+        "phone" : 131782734
+}
+{
+        "_id" : ObjectId("6115f23f8e48e66672b55329"),
+        "name" : "Test",
+        "hobbies" : [
+                {
+                        "title" : "Cooking",
+                        "frequency" : 5
+                },
+                {
+                        "title" : "Cars",
+                        "frequency" : 2
+                }
+        ],
+        "phone" : "122132334",
+        "age" : 30
+}
+{
+        "_id" : ObjectId("6115f4ea8e48e66672b5532a"),
+        "name" : "Unknown",
+        "hobbies" : [
+                {
+                        "title" : "Sports",
+                        "frequency" : 2
+                },
+                {
+                        "title" : "Yoga",
+                        "frequency" : 3
+                }
+        ],
+        "phone" : "1322433545",
+        "age" : null
+}
+{
+        "_id" : ObjectId("61176012fb7d678ebc7a1d5a"),
+        "name" : "Chris",
+        "hobbies" : [
+                {
+                        "title" : "Sports",
+                        "frequency" : 5
+                },
+                {
+> db.users.updateMany( {"hobbies.title" : "Sports"}, {$set : {isSporty : true}})
+{ "acknowledged" : true, "matchedCount" : 3, "modifiedCount" : 3 }
+> db.users.find().pretty()
+{
+        "_id" : ObjectId("6115f23f8e48e66672b55328"),
+        "name" : "Karan",
+        "hobbies" : [
+                {
+                        "title" : "Sports",
+                        "frequency" : 3
+                },
+                {
+                        "title" : "Cooking",
+                        "frequency" : 6
+                }
+        ],
+        "phone" : 131782734,
+        "isSporty" : true
+}
+{
+        "_id" : ObjectId("6115f23f8e48e66672b55329"),
+        "name" : "Test",
+        "hobbies" : [
+                {
+                        "title" : "Cooking",
+                        "frequency" : 5
+                },
+                {
+                        "title" : "Cars",
+                        "frequency" : 2
+                }
+        ],
+        "phone" : "122132334",
+        "age" : 30
+}
+{
+        "_id" : ObjectId("6115f4ea8e48e66672b5532a"),
+        "name" : "Unknown",
+        "hobbies" : [
+                {
+                        "title" : "Sports",
+                        "frequency" : 2
+                },
+                {
+                        "title" : "Yoga",
+                        "frequency" : 3
+                }
+        ],
+        "phone" : "1322433545",
+        "age" : null,
+        "isSporty" : true
+}
+{
+        "_id" : ObjectId("61176012fb7d678ebc7a1d5a"),
+        "name" : "Chris",
+        "hobbies" : [
+                {
+                        "title" : "Sports",
+                        "frequency" : 5
+                },
+                {
+                        "title" : "Cooking",
+                        "frequency" : 3
+                },
+                {
+                        "title" : "Hiking",
+                        "frequency" : 1
+                }
+        ],
+        "isSporty" : true
+}
+> db.users.updateOne( {_id : ObjectId("61176012fb7d678ebc7a1d5a")} , {$set : { age : 30 , phone : 12121232323232}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.users.find().pretty()
+{
+        "_id" : ObjectId("6115f23f8e48e66672b55328"),
+        "name" : "Karan",
+        "hobbies" : [
+                {
+                        "title" : "Sports",
+                        "frequency" : 3
+                },
+                {
+                        "title" : "Cooking",
+                        "frequency" : 6
+                }
+        ],
+        "phone" : 131782734,
+        "isSporty" : true
+}
+{
+        "_id" : ObjectId("6115f23f8e48e66672b55329"),
+        "name" : "Test",
+        "hobbies" : [
+                {
+                        "title" : "Cooking",
+                        "frequency" : 5
+                },
+                {
+                        "title" : "Cars",
+                        "frequency" : 2
+                }
+        ],
+        "phone" : "122132334",
+        "age" : 30
+}
+{
+        "_id" : ObjectId("6115f4ea8e48e66672b5532a"),
+        "name" : "Unknown",
+        "hobbies" : [
+                {
+                        "title" : "Sports",
+                        "frequency" : 2
+                },
+                {
+                        "title" : "Yoga",
+                        "frequency" : 3
+                }
+        ],
+        "phone" : "1322433545",
+        "age" : null,
+        "isSporty" : true
+}
+{
+        "_id" : ObjectId("61176012fb7d678ebc7a1d5a"),
+        "name" : "Chris",
+        "hobbies" : [
+                {
+                        "title" : "Sports",
+                        "frequency" : 5
+                },
+                {
+                        "title" : "Cooking",
+                        "frequency" : 3
+                },
+                {
+                        "title" : "Hiking",
+                        "frequency" : 1
+                }
+        ],
+        "isSporty" : true,
+        "age" : 30,
+        "phone" : 12121232323232
+}

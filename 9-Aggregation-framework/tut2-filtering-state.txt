@@ -1,0 +1,11 @@
+aggregate method run on the collection and takes array
+aggregate method takes an array because we define the series of steps that should be run on the data
+aggregate method return an cursor object
+
+The first document in the array is filter (which is used for fetching the data from the collection) and then next document passed to an array is used to specify the modification on that data
+The fist state is simply "match" stage  which is a filtering stage
+
+
+> db.contacts.aggregate([{$match : {gender : "female"}}]).pretty()
+
+

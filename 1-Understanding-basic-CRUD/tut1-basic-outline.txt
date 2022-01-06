@@ -1,0 +1,67 @@
+> show dbs
+StudentManagementSystem  0.000GB
+Videos                   0.000GB
+admin                    0.000GB
+completeForm             0.000GB
+config                   0.000GB
+local                    0.000GB
+shop                     0.000GB
+todo                     0.000GB
+> use shop
+switched to db shop
+> show collections
+products
+> db.products.find().pretty()
+{
+        "_id" : ObjectId("6103d1f2b3e229af4a47ca74"),
+        "name" : "book",
+        "price" : 12.99
+}
+{
+        "_id" : ObjectId("6103d23db3e229af4a47ca75"),
+        "name" : "t shirt",
+        "price" : 12,
+        "description" : "nice t-shirt"
+}
+{
+        "_id" : ObjectId("6103d346b3e229af4a47ca76"),
+        "name" : "Computer",
+        "price" : 12.45,
+        "description" : "A high quality computer",   
+        "details" : {
+                "cpu" : "Intel i7 8778",
+                "memmory" : "32GB"
+        }
+}
+> db.products.insertOne({name:"bike" , price:12})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("6103d898dc50d426282dc895")
+}
+> db.products.find().pretty()
+{
+        "_id" : ObjectId("6103d1f2b3e229af4a47ca74"),
+        "name" : "book",
+        "price" : 12.99
+}
+{
+        "_id" : ObjectId("6103d23db3e229af4a47ca75"),
+        "name" : "t shirt",
+        "price" : 12,
+        "description" : "nice t-shirt"
+}
+{
+        "_id" : ObjectId("6103d346b3e229af4a47ca76"),
+        "name" : "Computer",
+        "price" : 12.45,
+        "description" : "A high quality computer",
+        "details" : {
+                "cpu" : "Intel i7 8778",
+                "memmory" : "32GB"
+        }
+}
+{
+        "_id" : ObjectId("6103d898dc50d426282dc895"),
+        "name" : "bike",
+        "price" : 12
+}

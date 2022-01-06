@@ -1,0 +1,12 @@
+
+$pull operator
+$pop 
+1 for if you want to remove last element from array
+-1 for if you want remove first element from an array
+
+> db.users.updateOne({name : "Maria"},{$pull : {hobbies : {title : "Gaming"}}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+> db.users.updateOne({name : "Maria"},{$pop : {hobbies : 1}})
+> db.users.updateOne({name : "Maria"},{$pop : {hobbies : -1}})
+

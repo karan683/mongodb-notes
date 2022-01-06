@@ -1,0 +1,10 @@
+
+$push 
+$addToSet (avoid duplicate insertion)
+
+> db.users.updateOne({name : "Maria"},{$push : {hobbies : {title : "Sports" , frequency : 2}}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+db.users.updateOne({name : "Maria"}, {$push : {hobbies : {$each : [{title : "Good drink" , frequency : 2},{title : "Gaming" , frequency : 3}] , $sort : {frequency : 1}}}})
+
+> db.users.updateOne({name : "Maria"},{$addToSet : {hobbies : {title : "Sports" , frequency : 2}}})

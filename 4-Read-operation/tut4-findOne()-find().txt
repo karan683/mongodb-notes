@@ -1,0 +1,120 @@
+We pass filter to findOne and find method by passing document as a first argument and then specifying the condition in that argument
+The findOne only gives us the first document of the matching filter
+> db.movies.findOne()
+{
+        "_id" : ObjectId("6114bd7079432cf5627c1246"),
+        "id" : 1,
+        "url" : "http://www.tvmaze.com/shows/1/under-the-dome",     
+        "name" : "Under the Dome",
+        "type" : "Scripted",
+        "language" : "English",
+        "genres" : [
+                "Drama",
+                "Science-Fiction",
+                "Thriller"
+        ],
+        "status" : "Ended",
+        "runtime" : 60,
+        "premiered" : "2013-06-24",
+        "officialSite" : "http://www.cbs.com/shows/under-the-dome/",
+        "schedule" : {
+                "time" : "22:00",
+                "days" : [
+                        "Thursday"
+                ]
+        },
+        "rating" : {
+                "average" : 6.5
+        },
+        "weight" : 91,
+        "network" : {
+                "id" : 2,
+                "name" : "CBS",
+                "country" : {
+                        "name" : "United States",
+                        "code" : "US",
+                        "timezone" : "America/New_York"
+                }
+        },
+        "webChannel" : null,
+        "externals" : {
+                "tvrage" : 25988,
+                "thetvdb" : 264492,
+                "imdb" : "tt1553656"
+        },
+        "image" : {
+                "medium" : "http://static.tvmaze.com/uploads/images/medium_portrait/0/1.jpg",
+                "original" : "http://static.tvmaze.com/uploads/images/original_untouched/0/1.jpg"
+        },
+        "summary" : "<p><b>Under the Dome</b> is the story of a small town that is suddenly and inexplicably sealed off from the rest of the world by an enormous transparent dome. The town's inhabitants must deal with surviving the post-apocalyptic conditions while searching for answers about the dome, where it came from and if and when it will go away.</p>",
+        "updated" : 1529612668,
+        "_links" : {
+                "self" : {
+                        "href" : "http://api.tvmaze.com/shows/1"
+                },
+                "previousepisode" : {
+                        "href" : "http://api.tvmaze.com/episodes/185054"
+                }
+        }
+}
+find method gives back us cursor object
+> db.movies.find({ name : "The Last Ship"}).pretty()
+{
+        "_id" : ObjectId("6114bd7079432cf5627c1259"),
+        "id" : 21,
+        "url" : "http://www.tvmaze.com/shows/21/the-last-ship",
+        "name" : "The Last Ship",
+        "type" : "Scripted",
+        "language" : "English",
+        "genres" : [
+                "Drama",
+                "Action",
+                "Thriller"
+        ],
+        "status" : "Running",
+        "runtime" : 60,
+        "premiered" : "2014-06-22",
+        "officialSite" : "http://www.tntdrama.com/shows/the-last-ship",
+        "schedule" : {
+                "time" : "21:00",
+                "days" : [
+                        "Sunday"
+                ]
+        },
+        "rating" : {
+                "average" : 7.8
+        },
+        "weight" : 100,
+        "network" : {
+                "id" : 14,
+                "name" : "TNT",
+                "country" : {
+                        "name" : "United States",
+                        "code" : "US",
+                        "timezone" : "America/New_York"
+                }
+        },
+        "webChannel" : null,
+        "externals" : {
+                "tvrage" : 33158,
+                "thetvdb" : 269533,
+                "imdb" : "tt2402207"
+        },
+        "image" : {
+                "medium" : "http://static.tvmaze.com/uploads/images/medium_portrait/164/412464.jpg",
+                "original" : "http://static.tvmaze.com/uploads/images/original_untouched/164/412464.jpg"
+        },
+        "summary" : "<p>Their mission is simple: Find a cure. Stop the virus. Save the world. When a global pandemic wipes out eighty percent of the planet's populatiotion, the crew of a lone naval destroyer must find a way to pull humanity from the brink of extinction.</p>",
+        "updated" : 1536575637,
+        "_links" : {
+                "self" : {
+                        "href" : "http://api.tvmaze.com/shows/21"
+                },
+                "previousepisode" : {
+                        "href" : "http://api.tvmaze.com/episodes/1499133"
+                },
+                "nextepisode" : {
+                        "href" : "http://api.tvmaze.com/episodes/1499134"
+                }
+        }
+}

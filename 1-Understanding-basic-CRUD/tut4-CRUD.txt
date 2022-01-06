@@ -1,0 +1,40 @@
+> use flights
+switched to db flights
+> show collections
+flightData        
+> db.flightData.find().pretty()
+{
+        "_id" : ObjectId("6103dfc6817efd9107b7ca7e"),
+        "departureAirport" : "MUC",
+        "arrivalAirport" : "SFO",
+        "distance" : 12000,
+        "intercontinental" : true
+}
+{
+        "_id" : ObjectId("6103e233817efd9107b7ca7f"),
+        "departureAirport" : "pune",
+        "arrivalAirport" : "mumbai"
+}
+> db.flightData.deleteOne({departureAirport : "pune"})
+{ "acknowledged" : true, "deletedCount" : 1 }
+> db.flightData.find().pretty()
+{
+        "_id" : ObjectId("6103dfc6817efd9107b7ca7e"),
+        "departureAirport" : "MUC",
+        "arrivalAirport" : "SFO",
+        "aircraft" : "Airbus A380",
+        "distance" : 12000,
+        "intercontinental" : true
+}
+> db.flightData.updateOne({distance : 12000 } , {$set : {marker : "delete"}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.flightData.find().pretty()
+{
+        "_id" : ObjectId("6103dfc6817efd9107b7ca7e"),
+        "departureAirport" : "MUC",
+        "arrivalAirport" : "SFO",
+        "aircraft" : "Airbus A380",
+        "distance" : 12000,
+        "intercontinental" : true,
+        "marker" : "delete"
+}

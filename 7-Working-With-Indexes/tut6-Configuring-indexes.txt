@@ -1,0 +1,20 @@
+
+
+Creating unique indexes
+> db.contacts.createIndex({email : 1},{unique : true})
+{
+        "ok" : 0,
+        "errmsg" : "Index build failed: cf95d574-3617-4ad7-bafb-3b1e3391d69d: Collection contactData.contacts ( 75762785-fcd7-448f-b398-efd6a19c1b2b ) :: caused by 
+:: E11000 duplicate key error collection: contactData.contacts index: email_1 dup key: { email: \"abigail.clark@example.com\" }",
+        "code" : 11000,
+        "codeName" : "DuplicateKey",
+        "keyPattern" : {
+                "email" : 1
+        },
+        "keyValue" : {
+                "email" : "abigail.clark@example.com"
+        }
+}
+> db.contacts.find({email : "abigail.clark@example.com"}).count()
+2
+

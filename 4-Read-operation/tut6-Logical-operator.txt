@@ -1,0 +1,16 @@
+Logical Operator
+
+$or : [{},{},{}]
+$nor : [{},{},{}]
+$and : [{},{},{}]
+$not : {}
+
+$nor is exactly opposite to $or
+
+> db.movies.find( {$or : [ {"rating.average" : {$lt : 5}} , {"rating.average": {$gt : 9.3}} ] } ).pretty()
+
+> db.movies.find( {$nor : [ {"rating.average" : {$lt : 5}} , {"rating.average": {$gt : 9.3}} ] } ).pretty()
+
+> db.movies.find({$and : [{"rating.average" : {$gt : 9}} , {genres : "Drama" }]}).pretty()
+
+> db.movies.find( {runtime : {$not : { $eq : 60 } } } ).pretty()   

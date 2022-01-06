@@ -1,0 +1,35 @@
+Quering Array
+
+diving deep in embeded documents with '.' and using "" in the field name
+> db.users.find( {"hobbies.title" : "Sports" } ).pretty()
+{
+        "_id" : ObjectId("6115f23f8e48e66672b55328"),    
+        "name" : "Karan",
+        "hobbies" : [
+                {
+                        "title" : "Sports",
+                        "frequency" : 3
+                },
+                {
+                        "title" : "Cooking",
+                        "frequency" : 6
+                }
+        ],
+        "phone" : 131782734
+}
+{
+        "_id" : ObjectId("6115f4ea8e48e66672b5532a"),    
+        "name" : "Unknown",
+        "hobbies" : [
+                {
+                        "title" : "Sports",
+                        "frequency" : 2
+                },
+                {
+                        "title" : "Yoga",
+                        "frequency" : 3
+                }
+        ],
+        "phone" : "1322433545",
+        "age" : null
+}

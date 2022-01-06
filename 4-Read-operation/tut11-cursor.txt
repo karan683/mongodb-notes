@@ -1,0 +1,16 @@
+cursor return an pointer
+
+> const dataCursor = db.movies.find()
+> dataCursor.next() // to get next document
+> dataCursor.forEach(doc => {printjson(doc)}) // prints all document
+> cursor.hasNext()
+true
+1 for ascending order
+-1 for descending order
+> db.movies.find().sort( {"rating.average" : 1 } ).pretty()
+> db.movies.find().sort( {"rating.average" : 1 , runtime : -1 } ).pretty()
+for pagination 
+skip() 
+limit()
+> db.movies.find().sort( {"rating.average" : 1 , runtime : -1 } ).skip(10).pretty()
+> db.movies.find().sort( {"rating.average" : 1 , runtime : -1 } ).limit(10).pretty()

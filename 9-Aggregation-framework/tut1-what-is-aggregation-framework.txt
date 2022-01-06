@@ -1,0 +1,6 @@
+What is aggregation framework ?
+
+The aggregation framework in its core is just the alternative to find methods
+The aggregation framework is all about building a pipeline of step that run on the data that is retrived from your collection and then gives the output in the form you needed
+And this step are sometimes related to find , match 
+Every state in this pipeline recieves the output of the previous state and slowly modifying it the way yoy needed it 

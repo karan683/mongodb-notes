@@ -1,0 +1,35 @@
+Now I want to find places that are near my location
+
+$near is operator used for working with geoSpacial data
+
+
+> db.places.find({location : {$near : {$geometry : { type : "Point" , coordinates : [-122.471114,37.771104]}}}})
+Error: error: {
+        "ok" : 0,
+        "errmsg" : "error processing query: ns=awesomeplaces.placesTree: GEONEAR  field=location maxdist=1.79769e+308 isNearSphere=0\nSort: {}\nProj: {}\n planner returned error :: caused by :: unable to find index for $geoNear query",
+        "code" : 291,
+        "codeName" : "NoQueryExecutionPlans"
+}
+ 
+our query failed becuase we dont have geoSpacial index how lets add geoNear index
+
+> db.places.createIndex({location : "2dsphere"})
+{
+        "createdCollectionAutomatically" : false,
+        "numIndexesBefore" : 1,
+        "numIndexesAfter" : 2,
+        "ok" : 1
+}
+
+> db.places.find({location : {$near : {$geometry : { type : "Point" , coordinates : [-122.471114,37.771104]}}}}).pretty()
+{
+        "_id" : ObjectId("614c73ddbccea091b88af9bb"),
+        "name" : "California academy of science",
+        "location" : {
+                "type" : "Point",
+                "coordinates" : [
+                        -122.4724356,
+                        37.7672544
+                ]
+        }
+}

@@ -1,0 +1,91 @@
+
+There are three use casses when we set schemas 
+
+1 Totally independent schemas
+2 In middle (some fields are common in documents and this type of schemas is use in real world)
+3 Like seqquel (all documents have same fields and this more realistic and hence use in real world) 
+
+
+db.products.insertOne( { name : "A book" , price : 12.99})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("61068ca84ba6cb1d34554201") 
+}
+> db.products.insertOne( { name : "A T-shirt" , price : 20.99})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("61068ccf4ba6cb1d34554202")    
+}
+> db.products.find().pretty()
+{
+        "_id" : ObjectId("61068ca84ba6cb1d34554201"),
+        "name" : "A book",
+        "price" : 12.99
+}
+{
+        "_id" : ObjectId("61068ccf4ba6cb1d34554202"),
+        "name" : "A T-shirt",
+        "price" : 20.99
+}
+> db.products.insertOne( { name : "A Computer" , price : 1299 , details :  { cpu : "Intet i7 8778"}})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("61068d274ba6cb1d34554203")
+}
+> db.products.find().pretty()
+{
+        "_id" : ObjectId("61068ca84ba6cb1d34554201"),
+        "name" : "A book",
+        "price" : 12.99
+}
+{
+        "_id" : ObjectId("61068ccf4ba6cb1d34554202"),
+        "name" : "A T-shirt",
+        "price" : 20.99
+}
+{
+        "_id" : ObjectId("61068d274ba6cb1d34554203"),
+        "name" : "A Computer",
+        "price" : 1299,
+        "details" : {
+                "cpu" : "Intet i7 8778"
+        }
+}
+
+> db.products.deleteMany({})
+
+> db.products.insertOne( { name : "A book" , price : 12.99 , details : null} )
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("610691f74ba6cb1d34554205")
+}
+> db.products.insertOne( { name : "A T-shirt" , price : 20.99 , details : null} )
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("610692104ba6cb1d34554206")
+}
+> db.products.insertOne( { name : "A Computer" , price : 1299 , details :  { cpu : "Intet i7 8778"}})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("6106921c4ba6cb1d34554207")
+}
+> db.products.find().pretty()
+{
+        "_id" : ObjectId("610691f74ba6cb1d34554205"),
+        "name" : "A book",
+        "price" : 12.99,
+        "details" : null
+}
+{
+        "_id" : ObjectId("610692104ba6cb1d34554206"),
+        "name" : "A T-shirt",
+        "price" : 20.99,
+        "details" : null
+{
+        "_id" : ObjectId("6106921c4ba6cb1d34554207"),
+        "name" : "A Computer",
+        "price" : 1299,
+        "details" : {
+                "cpu" : "Intet i7 8778"
+        }
+}

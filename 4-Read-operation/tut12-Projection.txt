@@ -1,0 +1,10 @@
+Using projection to shape our data
+projection is done by passing the second argument to find method
+_id field is always mentioned in a document by default
+write the name of the field then specify (1 or 0 (mention or not mention))
+
+db.collection.find({},{})
+                 
+> db.movies.find({},{name : 1}).pretty()
+
+Using projection with arrays

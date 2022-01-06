@@ -1,0 +1,183 @@
+Using projection in Array
+
+> db.movies.find({genres : {$all : ["Drama"]}}).count()
+153
+> db.movies.find( {genres : "Drama"} , {"genres.$" : 1} ).pretty()
+{ "_id" : ObjectId("61179700bd17da49c823b15b"), "genres" : [ "Drama" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b15c"), "genres" : [ "Drama" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b15d"), "genres" : [ "Drama" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b15e"), "genres" : [ "Drama" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b15f"), "genres" : [ "Drama" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b160"), "genres" : [ "Drama" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b161"), "genres" : [ "Drama" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b162"), "genres" : [ "Drama" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b163"), "genres" : [ "Drama" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b165"), "genres" : [ "Drama" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b166"), "genres" : [ "Drama" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b167"), "genres" : [ "Drama" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b168"), "genres" : [ "Drama" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b169"), "genres" : [ "Drama" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b16a"), "genres" : [ "Drama" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b16d"), "genres" : [ "Drama" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b16e"), "genres" : [ "Drama" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b16f"), "genres" : [ "Drama" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b170"), "genres" : [ "Drama" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b171"), "genres" : [ "Drama" ] }
+Type "it" for more
+> db.movies.find({genres : {$all : ["Drama" , "Horror"]}} , {"genres.$": 1}).pretty()
+{ "_id" : ObjectId("61179700bd17da49c823b15f"), "genres" : [ "Horror" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b162"), "genres" : [ "Horror" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b163"), "genres" : [ "Horror" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b166"), "genres" : [ "Horror" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b16d"), "genres" : [ "Horror" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b170"), "genres" : [ "Horror" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b175"), "genres" : [ "Horror" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b178"), "genres" : [ "Horror" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b1a2"), "genres" : [ "Horror" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b1ea"), "genres" : [ "Horror" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b1f5"), "genres" : [ "Horror" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b20f"), "genres" : [ "Horror" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b210"), "genres" : [ "Horror" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b215"), "genres" : [ "Horror" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b22f"), "genres" : [ "Horror" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b234"), "genres" : [ "Horror" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b239"), "genres" : [ "Horror" ] }
+> db.movies.find( {genres : "Drama"} , {genres : {$elemMatch: {$eq : "Horror"}}}).pretty()
+{ "_id" : ObjectId("61179700bd17da49c823b15b") }
+{ "_id" : ObjectId("61179700bd17da49c823b15c") }
+{ "_id" : ObjectId("61179700bd17da49c823b15d") }
+{ "_id" : ObjectId("61179700bd17da49c823b15e") }
+{ "_id" : ObjectId("61179700bd17da49c823b15f"), "genres" : [ "Horror" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b160") }
+{ "_id" : ObjectId("61179700bd17da49c823b161") }
+{ "_id" : ObjectId("61179700bd17da49c823b162"), "genres" : [ "Horror" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b163"), "genres" : [ "Horror" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b165") }
+{ "_id" : ObjectId("61179700bd17da49c823b166"), "genres" : [ "Horror" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b167") }
+{ "_id" : ObjectId("61179700bd17da49c823b168") }
+{ "_id" : ObjectId("61179700bd17da49c823b169") }
+{ "_id" : ObjectId("61179700bd17da49c823b16a") }
+{ "_id" : ObjectId("61179700bd17da49c823b16d"), "genres" : [ "Horror" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b16e") }
+{ "_id" : ObjectId("61179700bd17da49c823b16f") }
+{ "_id" : ObjectId("61179700bd17da49c823b170"), "genres" : [ "Horror" ] }
+{ "_id" : ObjectId("61179700bd17da49c823b171") }
+
+$slice operator
+we only see first two values in genres Array
+
+> db.movies.find( {"rating.average" : {$gt : 9}} , {genres : {$slice : 2} , name : 1}).pretty()
+{
+        "_id" : ObjectId("61179700bd17da49c823b172"),
+        "name" : "Berserk",
+        "genres" : [
+                "Anime",
+                "Fantasy"
+        ]
+}
+{
+        "_id" : ObjectId("61179700bd17da49c823b1a8"),
+        "name" : "Game of Thrones",
+        "genres" : [
+                "Drama",
+                "Adventure"
+        ]
+}
+{
+        "_id" : ObjectId("61179700bd17da49c823b1f7"),
+        "name" : "Breaking Bad",
+        "genres" : [
+                "Drama",
+                "Crime"
+        ]
+}
+{
+        "_id" : ObjectId("61179700bd17da49c823b200"),
+        "name" : "The Wire",
+        "genres" : [
+                "Drama",
+                "Crime"
+        ]
+}
+{
+        "_id" : ObjectId("61179700bd17da49c823b203"),
+        "name" : "Firefly",
+        "genres" : [
+                "Adventure",
+                "Science-Fiction"
+        ]
+}
+{
+        "_id" : ObjectId("61179700bd17da49c823b219"),
+        "name" : "Stargate SG-1",
+        "genres" : [
+                "Action",
+                "Adventure"
+        ]
+}
+{
+        "_id" : ObjectId("61179700bd17da49c823b249"),
+        "name" : "Rick and Morty",
+        "genres" : [
+                "Comedy",
+                "Adventure"
+        ]
+}
+[1,2] means skip first document and then return next two document
+> db.movies.find( {"rating.average" : {$gt : 9}} , {genres : {$slice : [1,2]} , name : 1}).pretty()
+{
+        "_id" : ObjectId("61179700bd17da49c823b172"),
+        "name" : "Berserk",
+        "genres" : [
+                "Fantasy",
+                "Horror"
+        ]
+}
+{
+        "_id" : ObjectId("61179700bd17da49c823b1a8"),
+        "name" : "Game of Thrones",
+        "genres" : [
+                "Adventure",
+                "Fantasy"
+        ]
+}
+{
+        "_id" : ObjectId("61179700bd17da49c823b1f7"),
+        "name" : "Breaking Bad",
+        "genres" : [
+                "Crime",
+                "Thriller"
+        ]
+}
+{
+        "_id" : ObjectId("61179700bd17da49c823b200"),
+        "name" : "The Wire",
+        "genres" : [
+                "Crime"
+        ]
+}
+{
+        "_id" : ObjectId("61179700bd17da49c823b203"),
+        "name" : "Firefly",
+        "genres" : [
+                "Science-Fiction",
+                "Western"
+        ]
+}
+{
+        "_id" : ObjectId("61179700bd17da49c823b219"),
+        "name" : "Stargate SG-1",
+        "genres" : [
+                "Adventure",
+                "Science-Fiction"
+        ]
+}
+{
+        "_id" : ObjectId("61179700bd17da49c823b249"),
+        "name" : "Rick and Morty",
+        "genres" : [
+                "Adventure",
+                "Science-Fiction"
+        ]
+}

@@ -1,0 +1,119 @@
+
+Index is created on a collection by createIndex() method on the collection
+
+explain() gives us detail info (works only on find , update and delete)
+add explain method afte the collection then continue your query
+
+
+> db.contacts.explain().find({"dob.age":{$gt : 60}})
+{
+        "queryPlanner" : {
+                "plannerVersion" : 1,
+                "namespace" : "contactData.contacts",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "dob.age" : {
+                                "$gt" : 60
+                        }
+                },
+                "queryHash" : "FC9E47D2",
+                "planCacheKey" : "FC9E47D2",
+                "winningPlan" : {
+                        "stage" : "COLLSCAN",
+                        "filter" : {
+                                "dob.age" : {
+                                        "$gt" : 60
+                                }
+                        },
+                        "direction" : "forward"
+                },
+                "rejectedPlans" : [ ]
+        },
+        "serverInfo" : {
+                "host" : "LAPTOP-98UUC66F",
+                "port" : 27017,
+                "version" : "4.4.3",
+                "gitVersion" : "913d6b62acfbb344dde1b116f4161360acd8fd13"
+        },
+        "ok" : 1
+}
+
+now we can get more detailed output by passing argument to explain method
+
+> db.contacts.explain("executionStats").find({"dob.age":{$gt : 60}})
+{
+        "queryPlanner" : {
+                "plannerVersion" : 1,
+                "namespace" : "contactData.contacts",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "dob.age" : {
+                                "$gt" : 60
+                        }
+                },
+                "winningPlan" : {
+                        "stage" : "COLLSCAN",        
+                        "filter" : {
+                                "dob.age" : {        
+                                        "$gt" : 60   
+                                }
+                        },
+                        "direction" : "forward"      
+                },
+                "rejectedPlans" : [ ]
+        },
+        "executionStats" : {
+                "executionSuccess" : true,
+                "nReturned" : 1222,
+                "executionTimeMillis" : 6,
+                "totalKeysExamined" : 0,
+                "totalDocsExamined" : 5000,
+                "executionStages" : {
+                        "stage" : "COLLSCAN",        
+                        "filter" : {
+                                "dob.age" : {        
+                                        "$gt" : 60   
+                                }
+                        },
+                        "nReturned" : 1222,
+                        "executionTimeMillisEstimate" : 1,
+                        "works" : 5002,
+                        "advanced" : 1222,
+                        "needTime" : 3779,
+                        "needYield" : 0,
+                        "saveState" : 5,
+                        "restoreState" : 5,
+                        "isEOF" : 1,
+                        "direction" : "forward",
+                        "docsExamined" : 5000
+                }
+        },
+        "serverInfo" : {
+                "host" : "LAPTOP-98UUC66F",
+                "port" : 27017,
+                "version" : "4.4.3",
+                "gitVersion" : "913d6b62acfbb344dde1b116f4161360acd8fd13"
+        },
+        "ok" : 1
+}
+
+Now let add Index  to see the change
+we add an Index to an collection
+Index is created on any field of any document
+
+Creating Indexes
+
+1 : for ascending order
+-1 : for descending order
+
+> db.contacts.createIndex({ "dob.age": 1}) 
+{
+        "createdCollectionAutomatically" : false,
+        "numIndexesBefore" : 1,
+        "numIndexesAfter" : 2,
+        "ok" : 1
+}
+> db.contacts.dropIndex({"dob.age":1})
+{ "nIndexesWas" : 2, "ok" : 1 }
+
+If you have a query that will return large portion or the majority of the document , then index may be slower

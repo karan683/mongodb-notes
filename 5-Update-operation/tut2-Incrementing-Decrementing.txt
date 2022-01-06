@@ -1,0 +1,13 @@
+Incrementing and Decrementing the number in MongoDb
+
+$inc : means Incrementing the value (positive value for Incrementing and negative value for Decrementing by that value)
+
+> db.users.updateOne({name : "Test"}, {$inc : {age : 1} })
+
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+> db.users.updateOne( {name : "Test"} , {$inc : { age: -1 } } )
+
+> db.users.updateOne( {name : "Test"} , {$inc : {age : 1} , $set : {name :"Tester"}} )
+
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }

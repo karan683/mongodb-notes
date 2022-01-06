@@ -1,0 +1,52 @@
+One City has many citizens but one citizens is related to particular One city hence one to many relationship
+
+> use cityData                                          
+switched to db cityData
+> db.cities.insertOne( {name : "New York City" ,  coordinates : { lat : 21, lng : 55}})    
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("6106db5c3118a038e52f5585")
+}
+> db.cities.findOne()
+{
+        "_id" : ObjectId("6106db5c3118a038e52f5585"),
+        "name" : "New York City",
+        "coordinates" : {
+                "lat" : 21,
+                "lng" : 55
+        }
+}
+> db.citizens.insertMany([ {name : "karan " , cityId :  ObjectId("6106db5c3118a038e52f5585")} , { name : "Max" , cityId :  ObjectId("6106db5c3118a038e52f5585")}])
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("6106dbd73118a038e52f5586"),
+                ObjectId("6106dbd73118a038e52f5587") 
+        ]
+}
+> db.citizens.find().pretty()
+{
+        "_id" : ObjectId("6106dbd73118a038e52f5586"),  
+        "name" : "karan ",
+        "cityId" : ObjectId("6106db5c3118a038e52f5585")
+}
+{
+        "_id" : ObjectId("6106dbd73118a038e52f5587"),  
+        "name" : "Max",
+        "cityId" : ObjectId("6106db5c3118a038e52f5585")
+}
+> db.cities.updateOne( {_id : ObjectId("6106db5c3118a038e52f5585")} , {$set : { citizens : [ObjectId("6106dbd73118a038e52f5586") , ObjectId("6106dbd73118a038e52f5587")]}} )
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.cities.findOne()
+{
+        "_id" : ObjectId("6106db5c3118a038e52f5585"),
+        "name" : "New York City",
+        "coordinates" : {
+                "lat" : 21,
+                "lng" : 55
+        },
+        "citizens" : [
+                ObjectId("6106dbd73118a038e52f5586"),
+                ObjectId("6106dbd73118a038e52f5587") 
+        ]
+}

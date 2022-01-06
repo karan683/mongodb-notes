@@ -1,0 +1,9 @@
+Adding GeoJson data
+
+In coordinates array first value is longitude and second value is latitude
+
+> db.places.insertOne({name : "California academy of science" , location : { type : "Point" , coordinates : [-122.4724356 , 37.7672544] }})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("614c73ddbccea091b88af9bb")
+}

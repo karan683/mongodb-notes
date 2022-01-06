@@ -1,0 +1,46 @@
+
+Example : questionThreads and answers collection
+One questionThreads can have many answers but one particular answers is related to particular one question
+Hence ONE TO MANY relationship
+
+First showing by refference approach and then Embeded
+
+
+> db.questionThreads.insertOne( { creator : "karan" ,  question : "How does that all work?" ,  answers : [ "q1a1" , "q2a2"] } )
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("6106d07ed1f3d045ca045335")
+}
+> db.questionThreads.findOne()
+{
+        "_id" : ObjectId("6106d07ed1f3d045ca045335"),
+        "creator" : "karan",
+        "question" : "How does that all work?",      
+        "answers" : [
+                "q1a1",
+                "q2a2"
+        ]
+}
+> db.answers.insertMany([ {_id : "q1a1" , text : "It works like that."} , { _id : "q2a2" , text : "Thanks!" }])
+{ "acknowledged" : true, "insertedIds" : [ "q1a1", "q2a2" ] }
+> db.answers.find().pretty()
+{ "_id" : "q1a1", "text" : "It works like that." }
+{ "_id" : "q2a2", "text" : "Thanks!" }
+
+Embeding
+
+> db.questionThreads.insertOne( { creator : "karan" , question : "How does that work?" , answers : [ {text : "Like that"} , { text : "Thanks!"}]} )
+> db.questionThreads.findOne()
+{
+        "_id" : ObjectId("6106d341d1f3d045ca045336"),
+        "creator" : "karan",
+        "question" : "How does that work?",
+        "answers" : [
+                {
+                        "text" : "Like that"
+                },
+                {
+                        "text" : "Thanks!"
+                }
+        ]
+}

@@ -1,0 +1,44 @@
+Text index is multikey index used for searching Text
+Text index stores the array of text means (keyword) that are present in text field in your document
+
+
+> db.products.insertMany([{title : "A Book" , description : "This is an awesome book about a young artist"},{title : "Red T-shirt" , description : "This T-shirt is 
+red and its pretty awesome!"}])
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("614d96ecbde7f973320ba86c"),
+                ObjectId("614d96ecbde7f973320ba86d") 
+        ]
+}
+
+> db.products.find().pretty()
+{
+        "_id" : ObjectId("614d96ecbde7f973320ba86c"),
+        "title" : "A Book",
+        "description" : "This is an awesome book about a young artist"
+}
+{
+        "_id" : ObjectId("614d96ecbde7f973320ba86d"),
+        "title" : "Red T-shirt",
+        "description" : "This T-shirt is red and its pretty awesome!"
+}
+
+> db.products.createIndex({description : "text"})
+{
+        "createdCollectionAutomatically" : false,
+        "numIndexesBefore" : 1,
+        "numIndexesAfter" : 2,
+        "ok" : 1
+}
+> db.products.find({$text : {$search : "awesome"}}).pretty()
+{
+        "_id" : ObjectId("614d96ecbde7f973320ba86c"),
+        "title" : "A Book",
+        "description" : "This is an awesome book about a young artist"
+}
+{
+        "_id" : ObjectId("614d96ecbde7f973320ba86d"),
+        "title" : "Red T-shirt",
+        "description" : "This T-shirt is red and its pretty awesome!"
+}

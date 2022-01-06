@@ -1,0 +1,13 @@
+When you want to update some document but you are not sure that document exits in the collection or not 
+If the document is not present then it insert the document in the collection
+
+upsert method in mongoDb
+passing third argument to updateOne and updateMany method
+
+> db.users.updateOne( {name : "Maria"} , { $set : {age : 26 , hobbies : [{title : "Good food" , frequency : 3}] , isSporty : true } } , {upsert : true} )
+{
+        "acknowledged" : true,
+        "matchedCount" : 0,
+        "modifiedCount" : 0,
+        "upsertedId" : ObjectId("611a1df17245599738a022b5")
+}

@@ -1,0 +1,44 @@
+passing filter to find method
+
+
+> show collections
+flightData        
+> db.flightData.find({intercontinental : true}).pretty()
+{
+        "_id" : ObjectId("610529e425ba3671bdd7b9a0"),
+        "departureAirport" : "MUC",
+        "arrivalAirport" : "SFO",  
+        "aircraft" : "Airbus A380",
+        "distance" : 12000,
+        "intercontinental" : true
+}
+> db.flightData.find({ distance : {$gt : 900 }}).pretty()
+{
+        "_id" : ObjectId("610529e425ba3671bdd7b9a0"),
+        "departureAirport" : "MUC",
+        "arrivalAirport" : "SFO",
+        "aircraft" : "Airbus A380",
+        "distance" : 12000,
+        "intercontinental" : true
+}
+{
+        "_id" : ObjectId("610529e425ba3671bdd7b9a1"),
+        "departureAirport" : "LHR",
+        "arrivalAirport" : "TXL",
+        "aircraft" : "A320",
+        "distance" : 950,
+        "intercontinental" : false,
+        "distane" : 1000
+}
+> db.flightData.findOne({ distance : {$gt : 900 }})         
+{
+        "_id" : ObjectId("610529e425ba3671bdd7b9a0"),
+        "departureAirport" : "MUC",
+        "arrivalAirport" : "SFO",
+        "aircraft" : "Airbus A380",
+        "distance" : 12000,
+        "intercontinental" : true
+}
+
+findOne return the first Documents of matching criteria 
+Note : pretty method is not supported on findOne method because this mehtod does not return the cursor Object and pretty method works only on the cursor

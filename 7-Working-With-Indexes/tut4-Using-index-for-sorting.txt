@@ -1,0 +1,54 @@
+using Indexes for sorting
+
+> db.contacts.explain().find({"dob.age":35}).sort({gender:1})
+{
+        "queryPlanner" : {
+                "plannerVersion" : 1,
+                "namespace" : "test.contacts",
+                "indexFilterSet" : false,     
+                "parsedQuery" : {
+                        "dob.age" : {
+                                "$eq" : 35    
+                        }
+                },
+                "queryHash" : "4E9D85A4",
+                "planCacheKey" : "1C1057F8",
+                "winningPlan" : {
+                        "stage" : "FETCH",
+                        "inputStage" : {
+                                "stage" : "IXSCAN",
+                                "keyPattern" : {
+                                        "dob.age" : 1,
+                                        "gender" : 1
+                                },
+                                "indexName" : "dob.age_1_gender_1",
+                                "isMultiKey" : false,
+                                "multiKeyPaths" : {
+                                        "dob.age" : [ ],
+                                        "gender" : [ ]
+                                },
+                                "isUnique" : false,
+                                "isSparse" : false,
+                                "isPartial" : false,
+                                "indexVersion" : 2,
+                                "direction" : "forward",
+                                "indexBounds" : {
+                                        "dob.age" : [
+                                                "[35.0, 35.0]"
+                                        ],
+                                        "gender" : [
+                                                "[MinKey, MaxKey]"
+                                        ]
+                                }
+                        }
+                },
+                "rejectedPlans" : [ ]
+        },
+        "serverInfo" : {
+                "host" : "LAPTOP-98UUC66F",
+                "port" : 27017,
+                "version" : "4.4.3",
+                "gitVersion" : "913d6b62acfbb344dde1b116f4161360acd8fd13"
+        },
+        "ok" : 1
+}

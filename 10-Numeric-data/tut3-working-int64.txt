@@ -1,0 +1,4 @@
+Working with int64
+
+db.companies.insertOne({ valuation : NumberLong("5000000000")})
+

@@ -1,0 +1,23 @@
+What are indexes ? why do we use them ?
+
+A Index can speed up our find , update and delete querries
+
+eg  db.products.find({seller : "karan"})
+mongoDb will go throught the entire collection , look for the every single document and see if seller equals to "karan"
+As you can imagine for many large collection for thousands of document this will take a while
+So this is default approach mongoDb takes or only the approach when you does not set the indexes
+
+Now you can create a index though a index is not replace for a collection but it an additional you can say
+So you can create index for "seller" key of products collection here and that index then exists additional to that collection
+Index is eccentially an "ordered" (order is maintained) list of all the values that are placed or stored for the seller key of the document
+every value in Index has pointer to the related document
+Now this allows mongoDb to do so called Index scan  to fulfill this querries
+This means it see for seller key such index exists therefore it goes to that seller index and can quickly jump to the right values
+
+Indexes are Ordered list of documents with pointer to original documents
+
+you might think if indexes speed up the querries so i can apply indexes to all fields in the document
+But Index does not come for free you have to pay some performance cost on inserts because that extra index has to be maintained need to be updated for every inserts 
+
+
+

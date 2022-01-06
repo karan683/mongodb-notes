@@ -1,0 +1,91 @@
+
+DIFFERENCE BETWEEN update , updateOne and updateMany
+
+> use flights
+switched to db flights
+> show collections
+flightData        
+> db.flightData.find().pretty()
+{
+        "_id" : ObjectId("610529e425ba3671bdd7b9a0"),
+        "departureAirport" : "MUC",
+        "arrivalAirport" : "SFO",
+        "aircraft" : "Airbus A380",
+        "distance" : 12000,
+        "intercontinental" : true
+}
+{
+        "_id" : ObjectId("610529e425ba3671bdd7b9a1"),
+        "departureAirport" : "LHR",
+        "arrivalAirport" : "TXL",
+        "aircraft" : "A320",
+        "distance" : 950,
+        "intercontinental" : false,
+        "distane" : 1000
+}
+> db.flightData.updateOne({ _id : ObjectId("610529e425ba3671bdd7b9a0")},{$set : { delayed : true}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.flightData.find().pretty()
+{
+        "_id" : ObjectId("610529e425ba3671bdd7b9a0"),
+        "departureAirport" : "MUC",
+        "arrivalAirport" : "SFO",
+        "aircraft" : "Airbus A380",
+        "distance" : 12000,
+        "intercontinental" : true,
+        "delayed" : true
+}
+{
+        "_id" : ObjectId("610529e425ba3671bdd7b9a1"),
+        "departureAirport" : "LHR",
+        "arrivalAirport" : "TXL",
+        "aircraft" : "A320",
+        "distance" : 950,
+        "intercontinental" : false,
+        "distane" : 1000
+}
+
+difference between update and updateMany
+update works same as updateMany but overwrite the whole data means works like replace
+difference is update does not require any $set operator means we pass the filter and data to update 
+
+> db.flightData.update({ _id : ObjectId("610529e425ba3671bdd7b9a0")} , {delayed : true})
+
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.flightData.find().pretty()
+{ "_id" : ObjectId("610529e425ba3671bdd7b9a0"), "delayed" : true }
+{
+        "_id" : ObjectId("610529e425ba3671bdd7b9a1"),
+        "departureAirport" : "LHR",
+        "arrivalAirport" : "TXL",
+        "aircraft" : "A320",
+        "distance" : 950,
+        "intercontinental" : false,
+        "distane" : 1000
+}
+
+update works same as replace
+
+> db.flightData.replaceOne( { _id : ObjectId("610529e425ba3671bdd7b9a0")} , { "departureAirport" : "MUC", arrivalAirport : "SFO" ,  aircraft : "A380" , distance : 12000 , intercontinental : true})
+
+> db.flightData.find().pretty()
+{
+        "_id" : ObjectId("610529e425ba3671bdd7b9a0"),
+        "departureAirport" : "MUC",
+        "arrivalAirport" : "SFO",
+        "aircraft" : "A380",
+        "distance" : 12000,
+        "intercontinental" : true
+}
+{
+        "_id" : ObjectId("610529e425ba3671bdd7b9a1"),
+        "departureAirport" : "LHR",
+        "arrivalAirport" : "TXL",
+        "aircraft" : "A320",
+        "distance" : 950,
+        "intercontinental" : false,
+        "distane" : 1000,
+        "delayed" : true
+}
+
+

@@ -1,0 +1,37 @@
+If you to set some field to a certain value but only if it is currently higher and not if it is lower
+
+$min : only changes the value if newer value is lower than the existing value
+$max : only changes the value if newer value is greater than the existing value
+$mul : multiply the value of field by the number we specify
+
+> db.users.updateOne( {name : "Chris"} , {$min : {age : 25}})     
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.users.findOne({name :"Chris"})
+{
+        "_id" : ObjectId("61176012fb7d678ebc7a1d5a"),
+        "name" : "Chris",
+        "hobbies" : [
+                {
+                        "title" : "Sports",
+                        "frequency" : 5
+                },
+                {
+                        "title" : "Cooking",
+                        "frequency" : 3
+                },
+                {
+                        "title" : "Hiking",
+                        "frequency" : 1
+                }
+        ],
+        "isSporty" : true,
+        "age" : 25,
+        "phone" : 12121232323232
+}
+
+> db.users.updateOne( {name :"Chris"} , {$max : {age : 20}})      
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 0 }
+You can see the document is not modified
+
+> db.users.updateOne( { name : "Chris"} , {$mul : {age : 2}})     
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }

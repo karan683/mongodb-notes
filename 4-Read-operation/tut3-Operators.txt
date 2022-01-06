@@ -1,0 +1,28 @@
+Read related operators
+Query and Projection operators
+A   Query selectors
+B   Projection operators
+
+
+How Operators Impact our Data
+
+TYPE                    PURPOSE                    CHANGES DATA        EXAMPLE
+Query Operators        locate data                    NO                $eq
+Projection Operators  Modify data Presentation        NO                 $
+Update Operators      Modify + add additional data    YES               $inc
+
+
+Query selectors
+1   Comparison ($eq , $ne , $lt , $gt , $lte , $gte , $in , $nin)
+2   Logical ($or , $nor , $and , $not)
+3   Element ($exits , $type)
+4   Evaluation  ($regex , $expr)
+5   Array
+6   Comments
+7   Geopatial
+
+Projection Operators
+1   $
+2   $elemMatch
+3   $meta
+4   $slice

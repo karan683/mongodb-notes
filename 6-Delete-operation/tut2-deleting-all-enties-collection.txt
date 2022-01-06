@@ -1,0 +1,10 @@
+Deleting all document in collection
+
+2 Methods
+
+> db.collection.deleteMany({})
+> db.collection.drop()
+
+Drop database
+use db
+db.dropDatabase()

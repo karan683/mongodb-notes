@@ -1,0 +1,20 @@
+Data types in MongoDb
+
+1 Text ("always uses double quotation and miximum capacity is 16mb")
+
+2 Boolean (true or false)
+
+3 Numbers
+    3.1 Integer(int32)  (Integer that are 32 bits long)
+    3.2 NumberLong (int64) (64 bits long)
+    3.3 NumberDecimal
+
+4 ObjectId (unique id and order is also maintained)
+
+5 ISODate
+
+6 TimeStamp (unique)
+
+7 Embeded Documents
+
+8 Arrays

@@ -1,0 +1,17 @@
+
+It only works on Date objects and single indexes
+
+> db.sessions.insertOne({data  : "dfdfdfdfdfdfdf" , createdAt : new Date()})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("614c6e8bbccea091b88af9ba")
+}
+> db.sessions.find()
+{ "_id" : ObjectId("614c6e8bbccea091b88af9ba"), "data" : "dfdfdfdfdfdfdf", "createdAt" : ISODate("2021-09-23T12:09:47.170Z") }
+> db.sessions.createIndex({createdAt  : 1},{expireAfterSeconds : 10})
+{
+        "createdCollectionAutomatically" : false,
+        "numIndexesBefore" : 1,
+        "numIndexesAfter" : 2,
+        "ok" : 1
+}

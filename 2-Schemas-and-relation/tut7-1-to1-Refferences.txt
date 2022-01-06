@@ -1,0 +1,48 @@
+Using Refferences for One to One relationship
+
+First showing by Embeded  approach and then refference 
+
+
+> db.persons.insertOne({ name : "karan" , car: { model : "BMW" , price : 40000}})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("6106cd02d1f3d045ca045332")
+}
+> db.persons.findOne()
+{
+        "_id" : ObjectId("6106cd02d1f3d045ca045332"),
+        "name" : "karan",
+        "car" : {
+                "model" : "BMW",
+                "price" : 40000
+        }
+}
+> db.persons.deleteMany( {} )
+{ "acknowledged" : true, "deletedCount" : 1 }
+> db.persons.insertOne({ name : "karan" , age: 20 , salary : 3000})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("6106cdcbd1f3d045ca045333")        
+}
+> db.cars.insertOne(  {model : "BMW" , price : 40000 , owner : ObjectId("6106cdcbd1f3d045ca045333")} )
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("6106ce20d1f3d045ca045334")
+}
+> db.persons.updateOne( {name : "karan"} , {$set : {car : ObjectId("6106ce20d1f3d045ca045334")}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.persons.findOne()
+{
+        "_id" : ObjectId("6106cdcbd1f3d045ca045333"),
+        "name" : "karan",
+        "age" : 20,
+        "salary" : 3000,
+        "car" : ObjectId("6106ce20d1f3d045ca045334") 
+}
+> db.cars.findOne()
+{
+        "_id" : ObjectId("6106ce20d1f3d045ca045334"), 
+        "model" : "BMW",
+        "price" : 40000,
+        "owner" : ObjectId("6106cdcbd1f3d045ca045333")
+}

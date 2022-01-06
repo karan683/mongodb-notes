@@ -1,0 +1,6 @@
+Renaming field in document
+
+$rename operator
+
+> db.users.updateMany( {} , {$rename : {age : "totalAge"} })
+{ "acknowledged" : true, "matchedCount" : 4, "modifiedCount" : 3 }

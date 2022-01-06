@@ -1,0 +1,183 @@
+Projections helps us to filter data which is getting from the database
+for Projections we pass the second argument to find method 
+to include something write the "name of field" : 1
+to exclude something write the "name of field" : 0
+and default behavior is , it always return the '_id' field  , to stop this write db.collection.find( {} , {_id : 0}) 
+
+> db.passengers.find( {} , {name : 1} )
+{ "_id" : ObjectId("61053879082f665322fd5379"), "name" : "Max Schwarzmueller" }
+{ "_id" : ObjectId("61053879082f665322fd537a"), "name" : "Manu Lorenz" }    
+{ "_id" : ObjectId("61053879082f665322fd537b"), "name" : "Chris Hayton" }   
+{ "_id" : ObjectId("61053879082f665322fd537c"), "name" : "Sandeep Kumar" }  
+{ "_id" : ObjectId("61053879082f665322fd537d"), "name" : "Maria Jones" }    
+{ "_id" : ObjectId("61053879082f665322fd537e"), "name" : "Alexandra Maier" }
+{ "_id" : ObjectId("61053879082f665322fd537f"), "name" : "Dr. Phil Evans" } 
+{ "_id" : ObjectId("61053879082f665322fd5380"), "name" : "Sandra Brugge" }  
+{ "_id" : ObjectId("61053879082f665322fd5381"), "name" : "Elisabeth Mayr" } 
+{ "_id" : ObjectId("61053879082f665322fd5382"), "name" : "Frank Cube" }     
+{ "_id" : ObjectId("61053879082f665322fd5383"), "name" : "Karandeep Alun" } 
+{ "_id" : ObjectId("61053879082f665322fd5384"), "name" : "Michaela Drayer" }
+{ "_id" : ObjectId("61053879082f665322fd5385"), "name" : "Bernd Hoftstadt" }
+{ "_id" : ObjectId("61053879082f665322fd5386"), "name" : "Scott Tolib" }    
+{ "_id" : ObjectId("61053879082f665322fd5387"), "name" : "Freddy Melver" }  
+{ "_id" : ObjectId("61053879082f665322fd5388"), "name" : "Alexis Bohed" }   
+{ "_id" : ObjectId("61053879082f665322fd5389"), "name" : "Melanie Palace" } 
+{ "_id" : ObjectId("61053879082f665322fd538a"), "name" : "Armin Glutch" }   
+{ "_id" : ObjectId("61053879082f665322fd538b"), "name" : "Klaus Arber" }    
+{ "_id" : ObjectId("61053879082f665322fd538c"), "name" : "Albert Twostone" }
+
+> db.passengers.find( {} , { age : 1}).toArray()
+[
+        {
+                "_id" : ObjectId("61053879082f665322fd5379"),
+                "age" : 29
+        },
+        {
+                "_id" : ObjectId("61053879082f665322fd537a"),
+                "age" : 30
+        },
+        {
+                "_id" : ObjectId("61053879082f665322fd537b"),
+                "age" : 35
+        },
+        {
+                "_id" : ObjectId("61053879082f665322fd537c"),
+                "age" : 28
+        },
+        {
+                "_id" : ObjectId("61053879082f665322fd537d"),
+                "age" : 30
+        },
+        {
+                "_id" : ObjectId("61053879082f665322fd537e"),
+                "age" : 27
+        },
+        {
+                "_id" : ObjectId("61053879082f665322fd537f"),
+                "age" : 47
+        },
+        {
+                "_id" : ObjectId("61053879082f665322fd5380"),
+                "age" : 33
+        },
+        {
+                "_id" : ObjectId("61053879082f665322fd5381"),
+                "age" : 29
+        },
+        {
+                "_id" : ObjectId("61053879082f665322fd5382"),
+                "age" : 41
+        },
+        {
+                "_id" : ObjectId("61053879082f665322fd5383"),
+                "age" : 48
+        },
+        {
+                "_id" : ObjectId("61053879082f665322fd5384"),
+                "age" : 39
+        },
+        {
+                "_id" : ObjectId("61053879082f665322fd5385"),
+                "age" : 22
+        },
+        {
+                "_id" : ObjectId("61053879082f665322fd5386"),
+                "age" : 44
+        },
+        {
+                "_id" : ObjectId("61053879082f665322fd5387"),
+                "age" : 41
+        },
+        {
+                "_id" : ObjectId("61053879082f665322fd5388"),
+                "age" : 35
+        },
+        {
+                "_id" : ObjectId("61053879082f665322fd5389"),
+                "age" : 27
+        },
+        {
+                "_id" : ObjectId("61053879082f665322fd538a"),
+                "age" : 35
+        },
+        {
+                "_id" : ObjectId("61053879082f665322fd538b"),
+                "age" : 53
+        },
+        {
+                "_id" : ObjectId("61053879082f665322fd538c"),
+                "age" : 68
+        },
+        {
+                "_id" : ObjectId("61053879082f665322fd538d"),
+                "age" : 38
+        }
+]
+> db.passengers.find( {} , { age : 1 , _id : 0}).toArray()
+[
+        {
+                "age" : 29
+        },
+        {
+                "age" : 30
+        },
+        {
+                "age" : 35
+        },
+        {
+                "age" : 28
+        },
+        {
+                "age" : 30
+        },
+        {
+                "age" : 27
+        },
+        {
+                "age" : 47
+        },
+        {
+                "age" : 33
+        },
+        {
+                "age" : 29
+        },
+        {
+                "age" : 41
+        },
+        {
+                "age" : 48
+        },
+        {
+                "age" : 39
+        },
+        {
+                "age" : 22
+        },
+        {
+                "age" : 44
+        },
+        {
+                "age" : 41
+        },
+        {
+                "age" : 35
+        },
+        {
+                "age" : 27
+        },
+        {
+                "age" : 35
+        },
+        {
+                "age" : 53
+        },
+        {
+                "age" : 68
+        },
+        {
+                "age" : 38
+        }
+]
+> db.passengers.findOne({age: 29} , {_id : 0})
+{ "name" : "Max Schwarzmueller", "age" : 29 }

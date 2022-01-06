@@ -1,0 +1,6 @@
+db.collectionName.insertOne({field : "value"}) // insertOne takes single documents
+db.collectionName.insertMany( [ {field : "value"} , {field : "value"} ]) // insertMany takes an array of documents
+db.collectionName.insert() // This method is flexible  and  it can insert one or many documents (array of documents) and this mehtod is depricated and does not return the inserted id hence not recommed to use because we sometimes require that inserted id in our front end application
+
+
+

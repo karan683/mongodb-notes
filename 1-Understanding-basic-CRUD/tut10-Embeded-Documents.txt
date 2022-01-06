@@ -1,0 +1,29 @@
+> db.flightData.updateMany( {} , {$set : {status : { description : "on-time" , lastUpdated : "1 hour ago"} }})
+{ "acknowledged" : true, "matchedCount" : 2, "modifiedCount" : 2 }
+> db.flightData.find().pretty()
+{
+        "_id" : ObjectId("610529e425ba3671bdd7b9a0"),
+        "departureAirport" : "MUC",
+        "arrivalAirport" : "SFO",
+        "aircraft" : "A380",
+        "distance" : 12000,
+        "intercontinental" : true,
+        "status" : {
+                "description" : "on-time",
+                "lastUpdated" : "1 hour ago"
+        }
+}
+{
+        "_id" : ObjectId("610529e425ba3671bdd7b9a1"),
+        "departureAirport" : "LHR",
+        "arrivalAirport" : "TXL",
+        "aircraft" : "A320",
+        "distance" : 950,
+        "intercontinental" : false,
+        "distane" : 1000,
+        "delayed" : true,
+        "status" : {
+                "description" : "on-time",
+                "lastUpdated" : "1 hour ago"
+        }
+}

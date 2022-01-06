@@ -1,0 +1,17 @@
+Number types 
+1   Integers
+2   Longs
+3   Doubles
+
+
+To be precise we can works with these 4 types of numbers in mongodb
+
+Integers (int32) Only full Number (range is bigger)
+Longs (int 64) Only full Number (range is much bigger)
+Doubles (64bit) Numbes with Decimal Places (default datatypes mongodb uses if you don't pass any information)
+High Precision Doubles (128bit) Numbes with Decimal Places
+
+
+
+Doubles (Decimal values are approximated) not stored with high Precision (higher range before the decimal part)
+High Precision Doubles (values are stored with high precision (34 decimal digits)) (higher range after the decimal part)

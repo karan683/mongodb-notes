@@ -1,0 +1,60 @@
+> db.users.insertMany([{name : "Karan" , email : "karansope1234@gmail.com"},{name : "unknown"}])   
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("614d75d0695c5dda8795b97e"),
+                ObjectId("614d75d0695c5dda8795b97f") 
+        ]
+}
+> db.users.createIndex({email : 1}, {unique : true})
+{
+        "createdCollectionAutomatically" : false,
+        "numIndexesBefore" : 1,
+        "numIndexesAfter" : 2,
+        "ok" : 1
+}
+> db.users.insertOne({name : "Anna"}) 
+WriteError({
+        "index" : 0,
+        "code" : 11000,
+        "errmsg" : "E11000 duplicate key error collection: contactData.users index: email_1 dup key: { email: null }",
+        "op" : {
+                "_id" : ObjectId("614d7641695c5dda8795b980"),
+                "name" : "Anna"
+        }
+}) :
+WriteError({
+        "index" : 0,
+        "code" : 11000,
+        "errmsg" : "E11000 duplicate key error collection: contactData.users index: email_1 dup key: { email: null }",
+        "op" : {
+                "_id" : ObjectId("614d7641695c5dda8795b980"),
+                "name" : "Anna"
+        }
+})
+WriteError@src/mongo/shell/bulk_api.js:458:48
+mergeBatchResults@src/mongo/shell/bulk_api.js:855:49
+executeBatch@src/mongo/shell/bulk_api.js:919:13
+Bulk/this.execute@src/mongo/shell/bulk_api.js:1163:21
+DBCollection.prototype.insertOne@src/mongo/shell/crud_api.js:264:9
+@(shell):1:1
+
+mongodb treats non-existing values still as a values in your index
+
+> db.users.dropIndex({email : 1})
+{ "nIndexesWas" : 2, "ok" : 1 }
+
+
+> db.users.createIndex({email : 1}, {unique : true , partialFilterExpression : {email : {$exists : true}}})
+{
+        "createdCollectionAutomatically" : false,
+        "numIndexesBefore" : 1,
+        "numIndexesAfter" : 2,
+        "ok" : 1
+}
+
+> db.users.insertOne({name : "Anna"})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("614d772d695c5dda8795b981")
+}

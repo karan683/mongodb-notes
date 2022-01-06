@@ -1,0 +1,6 @@
+
+mongoimport tv-shows.json -d  movieData -c movies --jsonArray --drop
+
+
+mongoimport    tv-shows.json         -d           movieData        -c               movies          --jsonArray             --drop
+keyword     import file location   database flag   database name  collectin flag  collectin name   to specify its an array  drop the data if exiting

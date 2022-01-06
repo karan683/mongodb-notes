@@ -1,0 +1,55 @@
+When you have Strong One to One relationship use embeded Documents instead of Refferences but you are not forced to 
+First showing by refference approach and then Embeded
+
+
+use hospital                                          
+switched to db hospital
+> db.patients.insertOne( {name : "karan" , age: 20 , diseaseSummary : "summary-karan-1"} )
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("6106c734c0aa2fcf9a058420")
+}
+> db.patients.findOne()
+{
+        "_id" : ObjectId("6106c734c0aa2fcf9a058420"),
+        "name" : "karan",
+        "age" : 20,
+        "diseaseSummary" : "summary-karan-1"
+}
+> db.diseaseSummaries.insertOne( { _id : "summary-karan-1" , diseases : [ "cold" , "broken leg" ]})
+{ "acknowledged" : true, "insertedId" : "summary-karan-1" }
+> db.diseaseSummaries.findOne()
+{ "_id" : "summary-karan-1", "diseases" : [ "cold", "broken leg" ] }
+> db.patients.findOne()
+{
+        "_id" : ObjectId("6106c734c0aa2fcf9a058420"),
+        "name" : "karan",
+        "age" : 20,
+        "diseaseSummary" : "summary-karan-1"
+}
+> db.patients.findOne().diseaseSummary
+summary-karan-1
+> var dsid = db.patients.findOne().diseaseSummary
+> dsid
+summary-karan-1
+> db.diseaseSummaries.find( {_id : dsid})
+{ "_id" : "summary-karan-1", "diseases" : [ "cold", "broken leg" ] }
+> db.patients.deleteMany({})
+{ "acknowledged" : true, "deletedCount" : 1 }
+> db.patients.insertOne( {name : "karan" , age: 29 , diseaseSummary : { diseases : ["cold" , "broken leg"]}}) 
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("6106c9d6c0aa2fcf9a058421")
+}
+> db.patients.findOne()
+{
+        "_id" : ObjectId("6106c9d6c0aa2fcf9a058421"),
+        "name" : "karan",
+        "age" : 29,
+        "diseaseSummary" : {
+                "diseases" : [
+                        "cold",
+                        "broken leg"
+                ]
+        }
+}

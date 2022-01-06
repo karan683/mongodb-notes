@@ -1,0 +1,41 @@
+Query Selectors
+
+Comparison operators
+db.colllection.find({runtime : {$operator : value}})
+db.colllection.find({runtime : {$ne : 60}})
+
+$eq : means equal to
+
+$ne : means not equal to
+
+$lt : lower than 
+
+$gt : greater than
+
+$lte : lower than or equal to
+
+$gte : greater than or equal to 
+
+$in  : it is used to search for discrete value and searches for only those value which are mentioned in the array (takes an array of 
+values $in : [])
+
+$nin : it is used to search for discrete value and searches for only those value which are not mentioned in the array (takes an array of values $nin : [])
+
+Querying Embedded fields and Arrays
+Use to "" and " . " operator to field name to go deeper in the documents
+
+> db.movies.find({ "rating.average" : {$gt : 7 } }).pretty() 
+
+It will look for all documents that have genres array with value "Drama"
+> db.movies.find({ genres : {$eq : "Drama" } }).pretty()
+
+It will look for all documents that have genres array with value exactly equal to "Drama" (array with only "Drama" value)
+> db.movies.find({ genres : {$eq : ["Drama"] } }).pretty()
+
+Understanding $in and $nin
+It will look for all documents where value of runtime is equal to 30 or 42
+> db.movies.find({ runtime : {$in : [30,40] } }).pretty()
+
+
+It will look for all documents where value of runtime is not equal to 30 or 42
+> db.movies.find({ runtime : {$nin : [30,40] } }).pretty()

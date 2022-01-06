@@ -1,0 +1,10 @@
+Getting rid of the field of the values
+
+$unset : this is use to get rid of the field
+
+> db.users.updateMany( {isSporty : true} , {$unset : {phone : ""}}) 
+{ "acknowledged" : true, "matchedCount" : 3, "modifiedCount" : 3 }
+
+phone field is removed from the filtered document
+
+

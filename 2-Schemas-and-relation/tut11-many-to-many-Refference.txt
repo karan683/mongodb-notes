@@ -1,0 +1,67 @@
+Books and Authors
+
+one Book can be written by multiple Authors
+one Author can write more than one book 
+hence many-to-many relationship
+
+
+> use bookRegistry                                      
+switched to db bookRegistry
+> db.books.insertOne( { name : "My favourite Book" , authors : [{ name : "karan" , age : 20}, {name : "unknown" , age : 19}]} ) 
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("6107abfc6c3debff7b54a25c")
+}
+> db.books.findOne()
+{
+        "_id" : ObjectId("6107abfc6c3debff7b54a25c"),
+        "name" : "My favourite Book",
+        "authors" : [
+                {
+                        "name" : "karan",
+                        "age" : 20
+                },
+                {
+                        "name" : "unknown",
+                        "age" : 19
+                }
+        ]
+}
+> db.authors.insertMany([ {name : "karan" , age : 20 , address : {street : "Main"}} , { name : "unknown"  , age : 19 , address : {street : "unknown street"}}])
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("6107acbf6c3debff7b54a25d"),
+                ObjectId("6107acbf6c3debff7b54a25e") 
+        ]
+}
+> db.authors.find().pretty()
+{
+        "_id" : ObjectId("6107acbf6c3debff7b54a25d"),
+        "name" : "karan",
+        "age" : 20,
+        "address" : {
+                "street" : "Main"
+        }
+}
+{
+        "_id" : ObjectId("6107acbf6c3debff7b54a25e"),
+        "name" : "unknown",
+        "age" : 19,
+        "address" : {
+                "street" : "unknown street"
+        }
+}
+
+
+> db.books.updateOne({} , {$set : {authors : [ObjectId("6107acbf6c3debff7b54a25d"), ObjectId("6107acbf6c3debff7b54a25e")]}}) 
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.books.findOne()
+{
+        "_id" : ObjectId("6107abfc6c3debff7b54a25c"),
+        "name" : "My favourite Book",
+        "authors" : [
+                ObjectId("6107acbf6c3debff7b54a25d"),
+                ObjectId("6107acbf6c3debff7b54a25e") 
+        ]
+}

@@ -1,0 +1,173 @@
+
+Insert method is not recommended (works with both single and multiple documents)
+// because it is depricated in the latest version and does not return the inserted id
+
+> use contactData
+switched to db contactData
+> db.persons.insertOne( { name : "karan" , age : 20 , hobbies : ["Sports" , "Cooking"]} )
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("611275d49ab378bf6ef4461a")
+}
+> db.persons.insertOne( { name : "unknown" , age : 21 , hobbies : ["Cars" , "Cooking"]} )  
+{                                                                                        
+        "acknowledged" : true,
+        "insertedId" : ObjectId("611275f59ab378bf6ef4461b")
+}
+> db.persons.insertMany([ {name : "Anna" , age : 22 , hobbies : ["Sports" , "yoga"]}])      
+{  
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("611276529ab378bf6ef4461c")
+        ]
+}
+> db.persons.insertMany([ {name : "Maria" , age : 22 } , {name : "chris" , age : 23}])
+{                                                                                     
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("611276819ab378bf6ef4461d"),
+                ObjectId("611276819ab378bf6ef4461e")
+        ]
+}
+> db.persons.find().pretty()
+{
+        "_id" : ObjectId("611275d49ab378bf6ef4461a"),
+        "name" : "karan",
+        "age" : 20,
+        "hobbies" : [
+                "Sports",
+                "Cooking"
+        ]
+}
+{
+        "_id" : ObjectId("611275f59ab378bf6ef4461b"),
+        "name" : "unknown",
+        "age" : 21,
+        "hobbies" : [
+                "Cars",
+                "Cooking"
+        ]
+}
+{
+        "_id" : ObjectId("611276529ab378bf6ef4461c"),
+        "name" : "Anna",
+        "age" : 22,
+        "hobbies" : [
+                "Sports",
+                "yoga"
+        ]
+}
+{
+        "_id" : ObjectId("611276819ab378bf6ef4461d"),
+        "name" : "Maria",
+        "age" : 22
+}
+{
+        "_id" : ObjectId("611276819ab378bf6ef4461e"),
+        "name" : "chris",
+        "age" : 23
+}
+
+insert method
+> db.persons.insert({name : "Phil"})
+WriteResult({ "nInserted" : 1 })    
+> db.persons.find().pretty()
+{
+        "_id" : ObjectId("611275d49ab378bf6ef4461a"),
+        "name" : "karan",
+        "age" : 20,
+        "hobbies" : [
+                "Sports",
+                "Cooking"
+        ]
+}
+{
+        "_id" : ObjectId("611275f59ab378bf6ef4461b"),
+        "name" : "unknown",
+        "age" : 21,
+        "hobbies" : [
+                "Cars",
+                "Cooking"
+        ]
+}
+{
+        "_id" : ObjectId("611276529ab378bf6ef4461c"),
+        "name" : "Anna",
+        "age" : 22,
+        "hobbies" : [
+                "Sports",
+                "yoga"
+        ]
+}
+{
+        "_id" : ObjectId("611276819ab378bf6ef4461d"),
+        "name" : "Maria",
+        "age" : 22
+}
+{
+        "_id" : ObjectId("611276819ab378bf6ef4461e"),
+        "name" : "chris",
+        "age" : 23
+}
+{ "_id" : ObjectId("6112772f9ab378bf6ef4461f"), "name" : "Phil" }
+
+> db.persons.insert([{name : "Hans" , age : 19} , {name : "Sandeep" , age : 28}])
+BulkWriteResult({
+        "writeErrors" : [ ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 2,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+> db.persons.find().pretty()
+{
+        "_id" : ObjectId("611275d49ab378bf6ef4461a"),
+        "name" : "karan",
+        "age" : 20,
+        "hobbies" : [
+                "Sports",
+                "Cooking"
+        ]
+}
+{
+        "_id" : ObjectId("611275f59ab378bf6ef4461b"),
+        "name" : "unknown",
+        "age" : 21,
+        "hobbies" : [
+                "Cars",
+                "Cooking"
+        ]
+}
+{
+        "_id" : ObjectId("611276529ab378bf6ef4461c"),
+        "name" : "Anna",
+        "age" : 22,
+        "hobbies" : [
+                "Sports",
+                "yoga"
+        ]
+}
+{
+        "_id" : ObjectId("611276819ab378bf6ef4461d"),
+        "name" : "Maria",
+        "age" : 22
+}
+{
+        "_id" : ObjectId("611276819ab378bf6ef4461e"),
+        "name" : "chris",
+        "age" : 23
+}
+{ "_id" : ObjectId("6112772f9ab378bf6ef4461f"), "name" : "Phil" }
+{
+        "_id" : ObjectId("611277cd9ab378bf6ef44620"),
+        "name" : "Hans",
+        "age" : 19
+}
+{
+        "_id" : ObjectId("611277cd9ab378bf6ef44621"),
+        "name" : "Sandeep",
+        "age" : 28
+}

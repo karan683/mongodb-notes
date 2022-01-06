@@ -1,0 +1,137 @@
+Multi-key index
+
+> db.multiKeyIndexCollection.insertOne({ name : "Karan" , hobbies : ["Cooking","Sports"] , addresses : [{street : "Main street"},{street : "Second Street"}]})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("614d92c3bde7f973320ba86b")
+}
+> db.multiKeyIndexCollection.find().pretty()
+{
+        "_id" : ObjectId("614d92c3bde7f973320ba86b"),
+        "name" : "Karan",
+        "hobbies" : [
+                "Cooking",
+                "Sports"
+        ],
+        "addresses" : [
+                {
+                        "street" : "Main street"
+                },
+                {
+                        "street" : "Second Street"
+                }
+        ]
+}
+
+> db.multiKeyIndexCollection.createIndex({hobbies : 1}) 
+{
+        "createdCollectionAutomatically" : false,
+        "numIndexesBefore" : 1,
+        "numIndexesAfter" : 2,
+        "ok" : 1
+}
+
+> db.multiKeyIndexCollection.explain("executionStats").find({hobbies : "Sports"})         
+{
+        "queryPlanner" : {
+                "plannerVersion" : 1,
+                "namespace" : "contactData.multiKeyIndexCollection",
+                "indexFilterSet" : false,
+                "parsedQuery" : {
+                        "hobbies" : {
+                                "$eq" : "Sports"
+                        }
+                },
+                "winningPlan" : {
+                        "stage" : "FETCH",
+                        "inputStage" : {
+                                "stage" : "IXSCAN",
+                                "keyPattern" : {
+                                        "hobbies" : 1
+                                },
+                                "indexName" : "hobbies_1",
+                                "isMultiKey" : true, // see here
+                                "multiKeyPaths" : {
+                                        "hobbies" : [
+                                                "hobbies"
+                                        ]
+                                },
+                                "isUnique" : false,
+                                "isSparse" : false,
+                                "isPartial" : false,
+                                "indexVersion" : 2,
+                                "direction" : "forward",
+                                "indexBounds" : {
+                                        "hobbies" : [
+                                                "[\"Sports\", \"Sports\"]"
+                                        ]
+                                }
+                        }
+                },
+                "rejectedPlans" : [ ]
+        },
+        "executionStats" : {
+                "executionSuccess" : true,
+                "nReturned" : 1,
+                "executionTimeMillis" : 9,
+                "totalKeysExamined" : 1,
+                "totalDocsExamined" : 1,
+                "executionStages" : {
+                        "stage" : "FETCH",
+                        "nReturned" : 1,
+                        "executionTimeMillisEstimate" : 0,
+                        "works" : 2,
+                        "advanced" : 1,
+                        "needTime" : 0,
+                        "needYield" : 0,
+                        "saveState" : 0,
+                        "restoreState" : 0,
+                        "isEOF" : 1,
+                        "docsExamined" : 1,
+                        "alreadyHasObj" : 0,
+                        "inputStage" : {
+                                "stage" : "IXSCAN",
+                                "nReturned" : 1,
+                                "executionTimeMillisEstimate" : 0,
+                                "works" : 2,
+                                "advanced" : 1,
+                                "needTime" : 0,
+                                "needYield" : 0,
+                                "saveState" : 0,
+                                "restoreState" : 0,
+                                "isEOF" : 1,
+                                "keyPattern" : {
+                                        "hobbies" : 1
+                                },
+                                "indexName" : "hobbies_1",
+                                "isMultiKey" : true,
+                                "multiKeyPaths" : {
+                                        "hobbies" : [
+                                                "hobbies"
+                                        ]
+                                },
+                                "isUnique" : false,
+                                "isSparse" : false,
+                                "isPartial" : false,
+                                "indexVersion" : 2,
+                                "direction" : "forward",
+                                "indexBounds" : {
+                                        "hobbies" : [
+                                                "[\"Sports\", \"Sports\"]"
+                                        ]
+                                },
+                                "keysExamined" : 1,
+                                "seeks" : 1,
+                                "dupsTested" : 1,
+                                "dupsDropped" : 0
+                        }
+                }
+        },
+        "serverInfo" : {
+                "host" : "LAPTOP-98UUC66F",
+                "port" : 27017,
+                "version" : "4.4.3",
+                "gitVersion" : "913d6b62acfbb344dde1b116f4161360acd8fd13"
+        },
+        "ok" : 1
+}

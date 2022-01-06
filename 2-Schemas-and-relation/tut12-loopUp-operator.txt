@@ -1,0 +1,83 @@
+lookUp operator in mongoDb
+lookUp operator uses the aggregate method
+lookUp method help to fetch two related documents in one document in one step
+
+> use bookRegistry
+switched to db bookRegistry
+> db.books.insertOne( { name : "A book" , price : 12.99 , authors : []})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("61098dd407c2dc68a484c8c8")
+}
+> db.books.findOne()
+{
+        "_id" : ObjectId("61098dd407c2dc68a484c8c8"),
+        "name" : "A book",
+        "price" : 12.99,
+        "authors" : []
+}
+> db.authors.insertMany([ {name : "karan" , age : 20 , books : [ObjectId("61098dd407c2dc68a484c8c8")]} , { name : "test" , age : 20 , books : [ObjectId("61098dd407c2dc68a484c8c8")]}])
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("61098e2b07c2dc68a484c8c9"),
+                ObjectId("61098e2b07c2dc68a484c8ca") 
+        ]
+}
+> db.authors.find().pretty()
+{
+        "_id" : ObjectId("61098e2b07c2dc68a484c8c9"),
+        "name" : "karan",
+        "age" : 20,
+        "books" : [
+                ObjectId("61098dd407c2dc68a484c8c8") 
+        ]
+}
+{
+        "_id" : ObjectId("61098e2b07c2dc68a484c8ca"),
+        "name" : "test",
+        "age" : 20,
+        "books" : [
+                ObjectId("61098dd407c2dc68a484c8c8") 
+        ]
+}
+> db.books.updateOne({_id :ObjectId("61098dd407c2dc68a484c8c8")}, {$set : {authors : [ObjectId("61098e2b07c2dc68a484c8c9") , ObjectId("61098e2b07c2dc68a484c8ca")]}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.books.findOne()
+{
+        "_id" : ObjectId("61098dd407c2dc68a484c8c8"),
+        "name" : "A book",
+        "price" : 12.99,
+        "authors" : [
+                ObjectId("61098e2b07c2dc68a484c8c9"),
+                ObjectId("61098e2b07c2dc68a484c8ca")
+        ]
+}
+> db.books.aggregate([ {$lookup : {from : "authors" ,  localField : "authors" , foreignField : "_id" , as : "creators"}} ]).pretty()                
+{
+        "_id" : ObjectId("61098dd407c2dc68a484c8c8"),
+        "name" : "A book",
+        "price" : 12.99,
+        "authors" : [
+                ObjectId("61098e2b07c2dc68a484c8c9"),
+                ObjectId("61098e2b07c2dc68a484c8ca")
+        ],
+        "creators" : [
+                {
+                        "_id" : ObjectId("61098e2b07c2dc68a484c8c9"),
+                        "name" : "karan",
+                        "age" : 20,
+                        "books" : [
+                                ObjectId("61098dd407c2dc68a484c8c8") 
+                        ]
+                },
+                {
+                        "_id" : ObjectId("61098e2b07c2dc68a484c8ca"),
+                        "name" : "test",
+                        "age" : 20,
+                        "books" : [
+                                ObjectId("61098dd407c2dc68a484c8c8") 
+                        ]
+                }
+        ]
+}

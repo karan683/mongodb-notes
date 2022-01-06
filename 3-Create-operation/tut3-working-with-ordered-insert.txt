@@ -1,0 +1,120 @@
+
+Ordered insertion simply means that every document you insert is processed standalone and  but if one fails it cancels the entire operations but it does not rollback the inserted Documents (This is default behavior) and to change this default behavior we have to pass second document to insertMany method ( db.collectionName.insertMany([{},{},{}],{ ordered : false }))  (and this insertion is called unordered insertion)
+
+> db.hobbies.insertMany( [ { _id : "sports" ,  name : "Sports"} , { _id :"cooking" ,  name : "Cooking"} , { _id : "cars" , name : "Cars"}] )  
+{
+        "acknowledged" : true,
+        "insertedIds" : [     
+                "sports",     
+                "cooking",    
+                "cars"        
+        ]
+}
+> db.hobbies.find().pretty()
+{ "_id" : "sports", "name" : "Sports" }  
+{ "_id" : "cooking", "name" : "Cooking" }
+{ "_id" : "cars", "name" : "Cars" } 
+
+The "hiking" Id already was already present in the database so it gave any error and cancels the insertion of  any further Documents
+but we configure this by passing an second Document to insertMany eg insertMany([ {} , {} , {} ], {ordered : false } ) (false to insert any Document after the insersion of previous document fails)
+
+ db.hobbies.insertMany( [ { _id : "hiking" ,  name : "Hiking"} , { _id :"cooking" ,  name : "Cooking"} ])
+uncaught exception: BulkWriteError({
+        "writeErrors" : [
+                {
+                        "index" : 0,
+                        "code" : 11000,
+                        "errmsg" : "E11000 duplicate key error collection: contactData.hobbies index: _id_ dup key: { _id: \"hiking\" }",
+                        "op" : {
+                                "_id" : "hiking",
+                                "name" : "Hiking"
+                        }
+                }
+        ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 0,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+}) :
+BulkWriteError({
+        "writeErrors" : [
+                {
+                        "index" : 0,
+                        "code" : 11000,
+                        "errmsg" : "E11000 duplicate key error collection: contactData.hobbies index: _id_ dup key: { _id: \"hiking\" }",
+                        "op" : {
+                                "_id" : "hiking",
+                                "name" : "Hiking"
+                        }
+                }
+        ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 0,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+BulkWriteError@src/mongo/shell/bulk_api.js:367:48
+BulkWriteResult/this.toError@src/mongo/shell/bulk_api.js:332:24
+Bulk/this.execute@src/mongo/shell/bulk_api.js:1186:23
+DBCollection.prototype.insertMany@src/mongo/shell/crud_api.js:326:5
+@(shell):1:1
+
+db.hobbies.insertMany( [ { _id : "hiking" ,  name : "Hiking"} , { _id :"reading" ,  name : "Reading"} ] , {ordered : false})
+uncaught exception: BulkWriteError({
+        "writeErrors" : [
+                {
+                        "index" : 0,
+                        "code" : 11000,
+                        "errmsg" : "E11000 duplicate key error collection: contactData.hobbies index: _id_ dup key: { _id: \"hiking\" }",
+                        "op" : {
+                                "_id" : "hiking",
+                                "name" : "Hiking"
+                        }
+                }
+        ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 1,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+}) :
+BulkWriteError({
+        "writeErrors" : [
+                {
+                        "index" : 0,
+                        "code" : 11000,
+                        "errmsg" : "E11000 duplicate key error collection: contactData.hobbies index: _id_ dup key: { _id: \"hiking\" }",
+                        "op" : {
+                                "_id" : "hiking",
+                                "name" : "Hiking"
+                        }
+                }
+        ],
+        "writeConcernErrors" : [ ],
+        "nInserted" : 1,
+        "nUpserted" : 0,
+        "nMatched" : 0,
+        "nModified" : 0,
+        "nRemoved" : 0,
+        "upserted" : [ ]
+})
+BulkWriteError@src/mongo/shell/bulk_api.js:367:48
+BulkWriteResult/this.toError@src/mongo/shell/bulk_api.js:332:24
+Bulk/this.execute@src/mongo/shell/bulk_api.js:1186:23
+DBCollection.prototype.insertMany@src/mongo/shell/crud_api.js:326:5
+@(shell):1:1
+
+> db.hobbies.find().pretty()
+{ "_id" : "sports", "name" : "Sports" }  
+{ "_id" : "cooking", "name" : "Cooking" }
+{ "_id" : "cars", "name" : "Cars" }      
+{ "_id" : "hiking", "name" : "Hiking" }  
+{ "_id" : "reading", "name" : "Reading" }

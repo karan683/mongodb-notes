@@ -1,0 +1,38 @@
+Array Query Selectors
+
+A   $size (use to find the array with the specified size in '$size' operator but this has to be an exact number)
+B   $all (this is really usefull when you doesn't care about the order , you just want to ensure all field are included in that array)
+C   $elemMatch (it use to macth same embeded document)
+
+
+
+
+> db.users.find( {hobbies :  {$size : 3}} ).pretty()  
+{
+        "_id" : ObjectId("61176012fb7d678ebc7a1d5a"),
+        "name" : "Chris",
+        "hobbies" : [
+                "Sports",
+                "Cooking",
+                "Hiking"
+        ]
+}
+> db.movieStart.find( {genre : {$all : ["action","thriller"]} } ).pretty()
+
+
+> db.users.find( {hobbies : {$elemMatch : {title : "Sports" , frequency : {$gte :3 }}}} ).pretty()
+{
+        "_id" : ObjectId("6115f23f8e48e66672b55328"),
+        "name" : "Karan",
+        "hobbies" : [
+                {
+                        "title" : "Sports",
+                        "frequency" : 3
+                },
+                {
+                        "title" : "Cooking",
+                        "frequency" : 6
+                }
+        ],
+        "phone" : 131782734
+}

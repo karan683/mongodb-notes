@@ -1,0 +1,4 @@
+Relations in MONGODB
+
+A Nested/Embeded Documents (we store the whole related document)
+B References (we store _id instead of whole document and we reference that _id)

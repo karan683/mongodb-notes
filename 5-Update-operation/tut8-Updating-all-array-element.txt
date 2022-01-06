@@ -1,0 +1,103 @@
+Updating all array element
+
+
+"hobbies.$" gives back us first matching document
+"hobbies.$[]" gives back us all elements
+"hobbies.$.fieldName" : "value" updates only first matching document so this syntax is required
+
+"hobbies.$[]"
+
+> db.users.updateMany( {"hobbies.frequency": {$gt : 2}} , {$set : { "hobbies.$[].school": "pccoe"}})
+{ "acknowledged" : true, "matchedCount" : 5, "modifiedCount" : 5 }
+> db.users.find().pretty()
+{
+        "_id" : ObjectId("6115f23f8e48e66672b55328"),
+        "name" : "Karan",
+        "hobbies" : [
+                {
+                        "title" : "Sports",
+                        "frequency" : 3,
+                        "highFrequency" : true,      
+                        "school" : "pccoe"
+                },
+                {
+                        "title" : "Cooking",
+                        "frequency" : 6,
+                        "school" : "pccoe"
+                }
+        ],
+        "isSporty" : true
+}
+{
+        "_id" : ObjectId("6115f23f8e48e66672b55329"),
+        "name" : "Tester",
+        "hobbies" : [
+                {
+                        "title" : "Cooking",
+                        "frequency" : 5,
+                        "school" : "pccoe"
+                },
+                {
+                        "title" : "Cars",
+                        "frequency" : 2,
+                        "school" : "pccoe"
+                }
+        ],
+        "phone" : "122132334",
+        "totalAge" : 32
+}
+{
+        "_id" : ObjectId("6115f4ea8e48e66672b5532a"),
+        "name" : "Unknown",
+        "hobbies" : [
+                {
+                        "title" : "Sports",
+                        "frequency" : 2,
+                        "school" : "pccoe"
+                },
+                {
+                        "title" : "Yoga",
+                        "frequency" : 3,
+                        "school" : "pccoe"
+                }
+        ],
+        "isSporty" : true,
+        "totalAge" : null
+}
+{
+        "_id" : ObjectId("61176012fb7d678ebc7a1d5a"),
+        "name" : "Chris",
+        "hobbies" : [
+                {
+                        "title" : "Sports",
+                        "frequency" : 5,
+                        "highFrequency" : true,
+                        "school" : "pccoe"
+                },
+                {
+                        "title" : "Cooking",
+                        "frequency" : 3,
+                        "school" : "pccoe"
+                },
+                {
+                        "title" : "Hiking",
+                        "frequency" : 1,
+                        "school" : "pccoe"
+                }
+        ],
+        "isSporty" : true,
+        "totalAge" : 50
+}
+{
+        "_id" : ObjectId("611a1df17245599738a022b5"),
+        "name" : "Maria",
+        "age" : 26,
+        "hobbies" : [
+                {
+                        "title" : "Good food",
+                        "frequency" : 3,
+                        "school" : "pccoe"
+                }
+        ],
+        "isSporty" : true
+}

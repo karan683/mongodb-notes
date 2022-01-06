@@ -1,0 +1,4 @@
+What is Atomaticy of any write operation ?
+let say we have insertOne operation now such operation most of the time will succeed but it can fail or have an error while the document is inserted 
+let say we have an document with fields name , age and hobbies , name and age is saved but server has an issue with hobbies , MongoDb protects you against this , it guarantees you an Atomatic transaction , transaction either succed as a whole or fails as a whole and it fails during the write the operation every thing is rollback (its on per document level (top level document))
+But if you use insertMany then you don't get this (only the document failed is rollback and exact behavior depends on the ordered inserts and unordered inserts)

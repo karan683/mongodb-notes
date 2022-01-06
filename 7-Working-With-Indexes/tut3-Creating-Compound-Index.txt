@@ -1,0 +1,29 @@
+
+creating index on age field
+
+> db.contacts.createIndex( { gender : 1 } )
+{
+        "createdCollectionAutomatically" : false,
+        "numIndexesBefore" : 1,
+        "numIndexesAfter" : 2,
+        "ok" : 1
+}
+
+let say we want to find all person who are older than 40 and male for we can create so called "Compound Index"
+Index with more than one field is called Compound Index
+
+this does not create two indexes but one index where every element has connected value ( age and gender) 
+> db.contacts.createIndex({"dob.age":1,gender: 1 })
+{
+        "createdCollectionAutomatically" : false,
+        "numIndexesBefore" : 1,
+        "numIndexesAfter" : 2,
+        "ok" : 1
+}
+
+Now from above query we have created one index (on two fields) i.e age and gender
+So while creating an we have written the query as db.collectionName.createIndex({"dob.age":1,gender:1})
+So this Compound index will be useful for left field (i.e "dob.age") while creating an index and for both fields but not useful for the right field (gender) because it cannot search for that single value alone
+Means you can use for left to right but not the last or second last
+
+index are sorted and first value defines the sorting so you can use Compound index for second value standalone

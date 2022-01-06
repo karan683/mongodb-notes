@@ -1,0 +1,122 @@
+> db.passengers.find( { name : "Albert Twostone"} ).pretty()
+{
+        "_id" : ObjectId("61053879082f665322fd538c"),
+        "name" : "Albert Twostone",
+        "age" : 68,
+        "hobbies" : [
+                "sports",
+                "cooking"
+        ]
+}
+> db.passengers.findOne( { name : "Albert Twostone"} ).hobbies
+[ "sports", "cooking" ]
+> db.passengers.find( { hobbies : "sports"}).pretty()
+{
+        "_id" : ObjectId("61053879082f665322fd538c"),
+        "name" : "Albert Twostone",
+        "age" : 68,
+        "hobbies" : [
+                "sports",
+                "cooking"
+        ]
+}
+> db.flightData.find().pretty()
+{
+        "_id" : ObjectId("610529e425ba3671bdd7b9a0"),
+        "departureAirport" : "MUC",
+        "arrivalAirport" : "SFO",
+        "aircraft" : "A380",
+        "distance" : 12000,
+        "intercontinental" : true,
+        "status" : {
+                "description" : "on-time",
+                "lastUpdated" : "1 hour ago",        
+                "details" : {
+                        "responsible" : "karan"      
+                }
+        }
+}
+{
+        "_id" : ObjectId("610529e425ba3671bdd7b9a1"),
+        "departureAirport" : "LHR",
+        "arrivalAirport" : "TXL",
+        "aircraft" : "A320",
+        "distance" : 950,
+        "intercontinental" : false,
+        "distane" : 1000,
+        "delayed" : true,
+        "status" : {
+                "description" : "on-time",
+                "lastUpdated" : "1 hour ago",        
+                "details" : {
+                        "responsible" : "karan"      
+                }
+        }
+}
+we drill in embeded documents with that " . " notation (note : use double quotation "")
+> db.flightData.find( { "status.description" : "on-time" }).pretty()
+{
+        "_id" : ObjectId("610529e425ba3671bdd7b9a0"),
+        "departureAirport" : "MUC",
+        "arrivalAirport" : "SFO",
+        "aircraft" : "A380",
+        "distance" : 12000,
+        "intercontinental" : true,
+        "status" : {
+                "description" : "on-time",
+                "lastUpdated" : "1 hour ago",
+                "details" : {
+                        "responsible" : "karan"
+                }
+        }
+}
+{
+        "_id" : ObjectId("610529e425ba3671bdd7b9a1"),
+        "departureAirport" : "LHR",
+        "arrivalAirport" : "TXL",
+        "aircraft" : "A320",
+        "distance" : 950,
+        "intercontinental" : false,
+        "distane" : 1000,
+        "delayed" : true,
+        "status" : {
+                "description" : "on-time",
+                "lastUpdated" : "1 hour ago",
+                "details" : {
+                        "responsible" : "karan"
+                }
+        }
+}
+ db.flightData.find( { "status.details.responsible" : "karan" }).pretty()  
+{
+        "_id" : ObjectId("610529e425ba3671bdd7b9a0"),
+        "departureAirport" : "MUC",
+        "arrivalAirport" : "SFO",
+        "aircraft" : "A380",
+        "distance" : 12000,
+        "intercontinental" : true,
+        "status" : {
+                "description" : "on-time",
+                "lastUpdated" : "1 hour ago",
+                "details" : {
+                        "responsible" : "karan"
+                }
+        }
+}
+{
+        "_id" : ObjectId("610529e425ba3671bdd7b9a1"),
+        "departureAirport" : "LHR",
+        "arrivalAirport" : "TXL",
+        "aircraft" : "A320",
+        "distance" : 950,
+        "intercontinental" : false,
+        "distane" : 1000,
+        "delayed" : true,
+        "status" : {
+                "description" : "on-time",
+                "lastUpdated" : "1 hour ago",
+                "details" : {
+                        "responsible" : "karan"
+                }
+        }
+}

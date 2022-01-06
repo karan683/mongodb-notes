@@ -1,0 +1,27 @@
+CRUD OPERATIONS
+
+C FOR CREATE
+
+1   insertOne(data,options)
+2   insertMany(data,options) ( insertMany takes an array of document seperated by commas)
+
+
+R FOR READ
+
+1   find(filter,options) finds all the matching documents
+2   findOne(filter,options) finds only first matching documents
+
+
+U FOR UPDATE
+
+1   updateOne(filter,data,options) updateOne only updates first document of matching documents
+2   updateMany(filter,data,options)    updates all documents of matching documents
+3   replaceOne(filter,data,options) if we wants to replace document
+4   update(filter,data) update overwrites the exiting data hence use carefully (no need to use $set operator)
+
+D FOR DELETE
+
+1   deleteOne(filter,options) delete only first document of matching documents
+2   deleteMany(filter,options) delets all  documents of matching documents
+
+
